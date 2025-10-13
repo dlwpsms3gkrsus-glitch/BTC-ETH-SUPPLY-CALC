@@ -25,7 +25,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body { font-family: 'Noto Sans KR', sans-serif; margin: 0; background-color: #121826; color: #E5ECF6; display: flex; flex-direction: column; min-height: 100vh; }
-        .container { max-width: 1800px; margin: 0 auto; padding: 20px; flex: 1; }
+        .container { min-width:830px; max-width: 1800px; margin: 0 auto; padding: 20px; flex: 1; }
         a { color: #FFB800; text-decoration: none; }
         header { display: flex; justify-content: space-between; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid #2a3f5f; flex-wrap: wrap; }
         .logo-section { display: flex; flex-direction: column; }
@@ -46,7 +46,7 @@
         .hidden { display: none; }
         footer { text-align: center; padding: 20px; margin-top: 40px; border-top: 1px solid #2a3f5f; font-size: 14px; color: #8c9db3; line-height: 1.6; }
 
-        .calculator-section { background-color: #1A2233; padding: 30px; border-radius: 12px; margin-top: 20px; }
+        .calculator-section { background-color: #334366; padding: 30px; border-radius: 12px; margin-top: 20px; }
         .calculator-header { border-bottom: 1px solid #2a3f5f; padding-bottom: 15px; margin-bottom: 20px; }
         .calculator-header h2 { margin: 0; font-weight: 500;}
         .calculator-header h5 { margin-top: 5px; margin-bottom: 0; font-size: 14px; color: #8c9db3; font-weight: 400; }
@@ -67,15 +67,11 @@
         #btc-calculator .value { color: #f7931a; }
         #eth-calculator .value { color: #627eea; }
         .chart-container { margin-top: 30px; padding-top: 20px; border-top: 1px solid #2a3f5f; }
-
+        input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+}
     </style>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-QBCMWL9C06"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-QBCMWL9C06');
-</script>
 
 </head>
 <body>
