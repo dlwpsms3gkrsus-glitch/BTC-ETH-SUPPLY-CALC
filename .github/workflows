@@ -1,4 +1,4 @@
-name: Update supply calc Daily
+name: Update supply calc Daily1
 
 on:
   workflow_dispatch: # 수동 실행 버튼
