@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>비트코인(BTC) & 이더리움(ETH) 공급량 계산기 및 차트 | CryptoFlow Tracker</title>
-    <meta name="description" content="비트코인(BTC)과 이더리움(ETH)의 실시간 가격과 함께, 특정 기간 동안의 암호화폐 공급량 누적 증가 추이를 선 그래프 차트로 시각화하여 확인하세요.">
-    <meta name="keywords" content="비트코인, 이더리움, 공급량, 계산기, 차트, 그래프, 암호화폐, BTC, ETH, supply, calculator, chart, apy, 인플레이션, 유통량">
+    <title>비트코인·이더리움 공급량 및 발행량 계산기 | Live Bitcoin (BTC) & Ethereum (ETH) Supply Calculator & Chart</title>
+    <meta name="description" content="비트코인(BTC)과 이더리움(ETH)의 총 공급량과 신규 발행량을 계산하고, 기간별 누적 증가 추이를 실시간 차트로 명확하게 확인하세요.">
+    <meta name="keywords" content="비트코인, 이더리움, 공급량, 발행량, 계산기, 차트, 그래프, 암호화폐, BTC, ETH, supply, calculator, chart, apy, 인플레이션, 유통량">
     <meta name="naver-site-verification" content="80f0eb344e65c6df25311a42d98c511fe3683ed1" />
 
     <!-- Open Graph / Facebook -->
@@ -73,21 +73,13 @@
     cursor: pointer;
 }
     </style>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XP6PFC260Y"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-XP6PFC260Y');
-</script>
 </head>
 <body>
 <div class="container">
 <header>
 <div class="logo-section">
-    <h1 class="logo"><a href="#">BTC/ETH Supply Calculator</a></h1>
+    <h1 class="logo"><a href="#">비트코인·이더리움 공급량 및 발행량 계산기</a></h1>
     <div class="coin-switcher">
         <button class="active" id="btn-btc"><i class="fa-brands fa-bitcoin"></i>BTC</button>
         <button id="btn-eth"><i class="fa-brands fa-ethereum"></i>ETH</button>
@@ -107,7 +99,7 @@
         <!-- BTC Calculator -->
         <div id="btc-calculator" class="calculator">
             <div class="calculator-header">
-                <h2>비트코인 공급량 계산기</h2>
+                <h2>비트코인(BTC) 공급량 및 발행량 실시간 추적 </h2>
                 <h5>since 2009-01-03 (당일 -2일까지 조회 가능)</h5>
             </div>
             <div class="input-group">
@@ -139,7 +131,7 @@
         <!-- ETH Calculator -->
         <div id="eth-calculator" class="calculator hidden">
              <div class="calculator-header">
-                <h2>이더리움 공급량 계산기</h2>
+                <h2>이더리움(ETH) 공급량 및 발행량 실시간 추적</h2>
                 <h5>since 2015-07-30 (당일 -2일까지 조회 가능)</h5>
             </div>
             <div class="input-group">
@@ -397,6 +389,4 @@
 </script>
 </body>
 </html>
-
-
 
