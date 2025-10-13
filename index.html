@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>비트코인(BTC) & 이더리움(ETH) 공급량 계산기 및 차트 | CryptoFlow Tracker</title>
+    <meta name="description" content="비트코인(BTC)과 이더리움(ETH)의 실시간 가격과 함께, 특정 기간 동안의 암호화폐 공급량 누적 증가 추이를 선 그래프 차트로 시각화하여 확인하세요.">
+    <meta name="keywords" content="비트코인, 이더리움, 공급량, 계산기, 차트, 그래프, 암호화폐, BTC, ETH, supply, calculator, chart, apy, 인플레이션, 유통량">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-website-url.com/">
+    <meta property="og:title" content="BTC/ETH 공급량 계산기 및 차트 | CryptoFlow Tracker">
+    <meta property="og:description" content="기간별 비트코인(BTC)과 이더리움(ETH)의 공급량 누적 증가 추이를 실시간 가격과 함께 차트로 확인하세요.">
+    <meta property="og:image" content="https://your-website-url.com/og-image.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://your-website-url.com/">
+    <meta property="twitter:title" content="BTC/ETH 공급량 계산기 및 차트 | CryptoFlow Tracker">
+    <meta property="twitter:description" content="기간별 비트코인(BTC)과 이더리움(ETH)의 공급량 누적 증가 추이를 실시간 가격과 함께 차트로 확인하세요.">
+    <meta property="twitter:image" content="https://your-website-url.com/twitter-image.png">
+    
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" referrerpolicy="no-referrer" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; margin: 0; background-color: #121826; color: #E5ECF6; display: flex; flex-direction: column; min-height: 100vh; }
+        .container { max-width: 1800px; margin: 0 auto; padding: 20px; flex: 1; }
+        a { color: #FFB800; text-decoration: none; }
+        header { display: flex; justify-content: space-between; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid #2a3f5f; flex-wrap: wrap; }
+        .logo-section { display: flex; flex-direction: column; }
+        h1.logo { font-size: 24px; font-weight: bold; margin: 0; }
+        h1.logo a { color: #E5ECF6; text-decoration: none; }
+        .timestamp { font-size: 12px; color: #8c9db3; margin-top: 5px; }
+        .coin-switcher { display: flex; gap: 10px; margin-top: 15px; }
+        .coin-switcher button { background-color: #2a3f5f; color: #E5ECF6; border: 1px solid #2a3f5f; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 14px; font-weight: bold; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+        .coin-switcher button:hover { background-color: #3e5681; }
+        .coin-switcher button.active { background-color: #FFB800; color: #121826; border-color: #FFB800; }
+        .coin-switcher button i { margin-right: 8px; }
+        .header-metrics { display: flex; gap: 40px; }
+        .live-crypto-price { text-align: right; }
+        .live-crypto-price .price { font-size: 28px; font-weight: bold; }
+        .live-crypto-price .change { font-size: 16px; }
+        .up { color: #4CAF50 !important; }
+        .down { color: #F44336 !important; }
+        .hidden { display: none; }
+        footer { text-align: center; padding: 20px; margin-top: 40px; border-top: 1px solid #2a3f5f; font-size: 14px; color: #8c9db3; line-height: 1.6; }
+
+        .calculator-section { background-color: #1A2233; padding: 30px; border-radius: 12px; margin-top: 20px; }
+        .calculator-header { border-bottom: 1px solid #2a3f5f; padding-bottom: 15px; margin-bottom: 20px; }
+        .calculator-header h2 { margin: 0; font-weight: 500;}
+        .calculator-header h5 { margin-top: 5px; margin-bottom: 0; font-size: 14px; color: #8c9db3; font-weight: 400; }
+        .calculator { width: 100%; max-width: 700px; margin: 20px auto; padding: 30px; background-color: #121826; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
+        .input-group { display: flex; justify-content: space-between; margin-bottom: 20px; gap: 15px; }
+        .input-field { display: flex; flex-direction: column; width: 48%; }
+        .input-field label { margin-bottom: 8px; font-weight: bold; color: #aebacd; }
+        .input-field input[type="date"] { padding: 10px; border: 1px solid #2a3f5f; background-color: #1A2233; color: #E5ECF6; border-radius: 6px; font-size: 16px; }
+        .calculator button { width: 100%; padding: 12px; font-size: 18px; font-weight: bold; color: white; border: none; border-radius: 6px; cursor: pointer; transition: background-color 0.3s; }
+        #btc-calculator button { background-color: #f7931a; }
+        #btc-calculator button:hover { background-color: #e68917; }
+        #eth-calculator button { background-color: #627eea; }
+        #eth-calculator button:hover { background-color: #4a63d8; }
+        #results-btc, #results-eth { margin-top: 25px; padding-top: 20px; border-top: 1px solid #2a3f5f; }
+        .result-item { font-size: 1.1em; margin: 12px 0; display: flex; justify-content: space-between; align-items: center; }
+        .result-item .label { color: #aebacd; }
+        .result-item .value { font-weight: bold; font-size: 1.2em; }
+        #btc-calculator .value { color: #f7931a; }
+        #eth-calculator .value { color: #627eea; }
+        .chart-container { margin-top: 30px; padding-top: 20px; border-top: 1px solid #2a3f5f; }
+
+    </style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QBCMWL9C06"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-QBCMWL9C06');
+</script>
+
+</head>
+<body>
+<div class="container">
+<header>
+<div class="logo-section">
+    <h1 class="logo"><a href="#">BTC/ETH Supply Calculator</a></h1>
+    <div class="coin-switcher">
+        <button class="active" id="btn-btc"><i class="fa-brands fa-bitcoin"></i>BTC</button>
+        <button id="btn-eth"><i class="fa-brands fa-ethereum"></i>ETH</button>
+    </div>
+    <div class="timestamp" id="timestamp-display">Loading time...</div>
+</div>
+<div class="header-metrics">
+    <div class="live-crypto-price">
+        <div id="price-title">Bitcoin Price</div>
+        <div class="price" id="crypto-price">Loading...</div>
+        <div class="change" id="crypto-change"></div>
+    </div>
+</div>
+</header>
+<main>
+    <section class="calculator-section">
+        <!-- BTC Calculator -->
+        <div id="btc-calculator" class="calculator">
+            <div class="calculator-header">
+                <h2>비트코인 공급량 계산기</h2>
+                <h5>since 2009-01-03 (당일 -2일까지 조회 가능)</h5>
+            </div>
+            <div class="input-group">
+                <div class="input-field">
+                    <label for="btc-startDate">시작일 (Start Date)</label>
+                    <input type="date" id="btc-startDate">
+                </div>
+                <div class="input-field">
+                    <label for="btc-endDate">종료일 (End Date)</label>
+                    <input type="date" id="btc-endDate">
+                </div>
+            </div>
+            <button id="btc-calculateBtn">계산하기</button>
+            <div id="results-btc" class="hidden">
+                <div class="result-item">
+                    <span class="label">📈 증가된 BTC의 양:</span>
+                    <span class="value" id="btc-supply-increase-abs"></span>
+                </div>
+                <div class="result-item">
+                    <span class="label">📊 기간 내 증가율:</span>
+                    <span class="value" id="btc-supply-increase-pct"></span>
+                </div>
+            </div>
+            <div id="chart-container-btc" class="chart-container hidden">
+                <canvas id="btcSupplyChart"></canvas>
+            </div>
+        </div>
+
+        <!-- ETH Calculator -->
+        <div id="eth-calculator" class="calculator hidden">
+             <div class="calculator-header">
+                <h2>이더리움 공급량 계산기</h2>
+                <h5>since 2015-07-30 (당일 -2일까지 조회 가능)</h5>
+            </div>
+            <div class="input-group">
+                <div class="input-field">
+                    <label for="eth-startDate">시작일 (Start Date)</label>
+                    <input type="date" id="eth-startDate">
+                </div>
+                <div class="input-field">
+                    <label for="eth-endDate">종료일 (End Date)</label>
+                    <input type="date" id="eth-endDate">
+                </div>
+            </div>
+            <button id="eth-calculateBtn">계산하기</button>
+            <div id="results-eth" class="hidden">
+                <div class="result-item">
+                    <span class="label">📈 증가된 ETH의 양:</span>
+                    <span class="value" id="eth-supply-increase-abs"></span>
+                </div>
+                <div class="result-item">
+                    <span class="label">📊 기간 내 증가율:</span>
+                    <span class="value" id="eth-supply-increase-pct"></span>
+                </div>
+            </div>
+            <div id="chart-container-eth" class="chart-container hidden">
+                <canvas id="ethSupplyChart"></canvas>
+            </div>
+        </div>
+    </section>
+</main>
+<footer>
+ <p>Website ver: 2.3.0 ver | <a href="release-notes.html">Release note 바로가기</a></p>
+<p>Created by: <a href="mailto:dlwpsms3gkrsus@gmail.com">dlwpsms3gkrsus@gmail.com</a></p>
+<p>naver blog: <a href="https://blog.naver.com/jsw3500">jsw3500@naver.com</a></p>
+</footer>
+</div>
+
+<script src="calc/btc_supply_data.js"></script>
+<script src="calc/eth_supply_data.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- DOM Elements ---
+        const btcBtn = document.getElementById('btn-btc');
+        const ethBtn = document.getElementById('btn-eth');
+        const priceTitleElement = document.getElementById('price-title');
+        const cryptoPriceElement = document.getElementById('crypto-price');
+        const cryptoChangeElement = document.getElementById('crypto-change');
+        const timestampElement = document.getElementById('timestamp-display');
+        
+        const btcCalculator = document.getElementById('btc-calculator');
+        const ethCalculator = document.getElementById('eth-calculator');
+
+        let currentCoin = 'BTC';
+        let lastPrice = 0;
+        let btcChartInstance;
+        let ethChartInstance;
+        
+        // --- Data Files Check ---
+        if (typeof btcSupplyData === 'undefined' || typeof ethSupplyData === 'undefined') {
+            console.error("CRITICAL ERROR: 공급량 데이터 파일(calc/btc_supply_data.js 또는 calc/eth_supply_data.js)을 찾을 수 없습니다. Python 스크립트를 실행하여 데이터 파일을 생성했는지 확인해주세요.");
+            const btcCalcButton = document.getElementById('btc-calculateBtn');
+            const ethCalcButton = document.getElementById('eth-calculateBtn');
+            if(btcCalcButton) {
+                btcCalcButton.disabled = true;
+                btcCalcButton.textContent = "데이터 파일 로딩 실패";
+                btcCalcButton.style.backgroundColor = '#555';
+                btcCalcButton.style.cursor = 'not-allowed';
+            }
+            if(ethCalcButton) {
+                ethCalcButton.disabled = true;
+                ethCalcButton.textContent = "데이터 파일 로딩 실패";
+                ethCalcButton.style.backgroundColor = '#555';
+                ethCalcButton.style.cursor = 'not-allowed';
+            }
+            return; 
+        }
+
+        // --- Data Fetching Functions ---
+        async function fetchPrice(coin) {
+             try { const response = await fetch(`https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${coin}&tsyms=USD`); const data = await response.json(); const priceData = data.RAW[coin].USD; priceTitleElement.innerText = `${coin === 'BTC' ? 'Bitcoin' : 'Ethereum'} Price`; cryptoPriceElement.innerText = `$${priceData.PRICE.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`; const sign = priceData.CHANGE24HOUR >= 0 ? '+' : ''; cryptoChangeElement.innerText = `${sign}${priceData.CHANGE24HOUR.toFixed(2)} (${sign}${priceData.CHANGEPCT24HOUR.toFixed(2)}%)`; cryptoPriceElement.classList.toggle('up', priceData.PRICE > lastPrice); cryptoPriceElement.classList.toggle('down', priceData.PRICE < lastPrice); cryptoChangeElement.classList.toggle('up', priceData.CHANGE24HOUR >= 0); cryptoChangeElement.classList.toggle('down', priceData.CHANGE24HOUR < 0); lastPrice = priceData.PRICE; } catch (error) { console.error(`Error fetching ${coin} price:`, error); } 
+        }
+
+        function displayCurrentTime() {
+             const now = new Date(); const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true }; const usEasternTime = now.toLocaleString('en-US', { ...options, timeZone: 'America/New_York' }); const koreaTime = now.toLocaleString('ko-KR', { ...options, timeZone: 'Asia/Seoul' }); timestampElement.innerHTML = `🇺🇸 ${usEasternTime} (US Eastern)<br>🇰🇷 ${koreaTime} (Korea)`; 
+        }
+        
+        // --- Main Control Function ---
+        function updateDashboard() {
+            lastPrice = 0;
+            fetchPrice(currentCoin);
+
+            if (currentCoin === 'BTC') {
+                btcCalculator.classList.remove('hidden');
+                ethCalculator.classList.add('hidden');
+            } else { // ETH
+                btcCalculator.classList.add('hidden');
+                ethCalculator.classList.remove('hidden');
+            }
+        }
+
+        // --- Event Listeners ---
+        btcBtn.addEventListener('click', () => {
+            if (currentCoin === 'BTC') return;
+            currentCoin = 'BTC';
+            btcBtn.classList.add('active');
+            ethBtn.classList.remove('active');
+            updateDashboard();
+        });
+
+        ethBtn.addEventListener('click', () => {
+            if (currentCoin === 'ETH') return;
+            currentCoin = 'ETH';
+            ethBtn.classList.add('active');
+            btcBtn.classList.remove('active');
+            updateDashboard();
+        });
+
+        // --- Calculator and Chart Logic ---
+        const btcSupplyMap = new Map(btcSupplyData.map(item => [item.Date, item.Supply]));
+        const ethSupplyMap = new Map(ethSupplyData.map(item => [item.Date, item.Supply]));
+
+        document.getElementById('btc-calculateBtn').addEventListener('click', () => {
+            handleCalculation('btc', btcSupplyMap);
+        });
+        
+        document.getElementById('eth-calculateBtn').addEventListener('click', () => {
+            handleCalculation('eth', ethSupplyMap);
+        });
+
+        function handleCalculation(coinPrefix, supplyMap) {
+            const startDateStr = document.getElementById(`${coinPrefix}-startDate`).value;
+            const endDateStr = document.getElementById(`${coinPrefix}-endDate`).value;
+
+            if (!startDateStr || !endDateStr) {
+                alert("시작일과 종료일을 모두 선택해주세요.");
+                return;
+            }
+            if (startDateStr >= endDateStr) {
+                alert("종료일은 시작일보다 이후 날짜여야 합니다.");
+                return;
+            }
+            
+            const startSupply = supplyMap.get(startDateStr);
+            const endSupply = supplyMap.get(endDateStr);
+
+            if (startSupply === undefined || endSupply === undefined) {
+                alert("선택하신 날짜에 대한 데이터가 없습니다. 다른 날짜를 선택해주세요.");
+                return;
+            }
+
+            const increaseAbs = endSupply - startSupply;
+            const increasePct = (increaseAbs / startSupply) * 100;
+
+            document.getElementById(`${coinPrefix}-supply-increase-abs`).textContent = `${increaseAbs.toLocaleString(undefined, {maximumFractionDigits: 4})} ${coinPrefix.toUpperCase()}`;
+            document.getElementById(`${coinPrefix}-supply-increase-pct`).textContent = `${(increasePct > 0 ? '+' : '') + increasePct.toFixed(4)} %`;
+            document.getElementById(`results-${coinPrefix}`).classList.remove('hidden');
+
+            const chartLabels = [];
+            const chartDataPoints = [];
+            
+            let currentDate = new Date(startDateStr);
+            const endDate = new Date(endDateStr);
+
+            while(currentDate <= endDate) {
+                const dateStr = currentDate.toISOString().split('T')[0];
+                const currentSupply = supplyMap.get(dateStr);
+                if (currentSupply !== undefined) {
+                    chartLabels.push(dateStr);
+                    chartDataPoints.push(currentSupply - startSupply);
+                }
+                currentDate.setDate(currentDate.getDate() + 1);
+            }
+
+            renderChart(coinPrefix, chartLabels, chartDataPoints);
+            document.getElementById(`chart-container-${coinPrefix}`).classList.remove('hidden');
+        }
+
+        function renderChart(coinPrefix, labels, data) {
+            let chartInstance = (coinPrefix === 'btc') ? btcChartInstance : ethChartInstance;
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            const ctx = document.getElementById(`${coinPrefix}SupplyChart`).getContext('2d');
+            const newChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: `누적 공급량 증가 (${coinPrefix.toUpperCase()})`,
+                        data: data,
+                        borderColor: coinPrefix === 'btc' ? '#f7931a' : '#627eea',
+                        backgroundColor: coinPrefix === 'btc' ? 'rgba(247, 147, 26, 0.2)' : 'rgba(98, 126, 234, 0.2)',
+                        borderWidth: 2,
+                        pointRadius: 1,
+                        fill: true,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    scales: {
+                        x: {
+                            ticks: { color: '#aebacd' },
+                            grid: { color: 'rgba(174, 186, 205, 0.2)' }
+                        },
+                        y: {
+                            ticks: { 
+                                color: '#aebacd',
+                                callback: function(value) {
+                                    if (Math.abs(value) >= 1000000) return (value / 1000000).toFixed(2) + 'M';
+                                    if (Math.abs(value) >= 1000) return (value / 1000).toFixed(2) + 'K';
+                                    return value.toLocaleString(undefined, {maximumFractionDigits: 0});
+                                }
+                            },
+                            grid: { color: 'rgba(174, 186, 205, 0.2)' }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: { color: '#E5ECF6' }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += context.parsed.y.toLocaleString(undefined, {maximumFractionDigits: 2});
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            if (coinPrefix === 'btc') {
+                btcChartInstance = newChartInstance;
+            } else {
+                ethChartInstance = newChartInstance;
+            }
+        }
+
+
+        // --- Initial Load & Interval Updates ---
+        updateDashboard();
+        displayCurrentTime();
+        setInterval(displayCurrentTime, 1000);
+        setInterval(() => fetchPrice(currentCoin), 30000);
+    });
+</script>
+</body>
+</html>
+
