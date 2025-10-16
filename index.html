@@ -3,27 +3,25 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>비트코인·이더리움 공급량 및 발행량 계산기</title>
+    <title data-lang-key="pageTitle">비트코인·이더리움 공급량 및 발행량 계산기</title>
     <meta name="description" content="비트코인(BTC)과 이더리움(ETH)의 총 공급량과 신규 발행량을 계산하고, 기간별 누적 증가 추이를 실시간 차트로 명확하게 확인하세요.">
     <meta name="keywords" content="비트코인, 이더리움, 공급량, 발행량, 계산기, 차트, 그래프, 암호화폐, BTC, ETH, supply, calculator, chart, apy, 인플레이션, 유통량">
     <meta name="naver-site-verification" content="80f0eb344e65c6df25311a42d98c511fe3683ed1" />
     <meta name="google-site-verification" content="VOeFnUDVB2h8q8K7RXfjdbwOcDtqARg3g4BrW06Ei9w" />
 
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://your-website-url.com/">
     <meta property="og:title" content="비트코인·이더리움 공급량 맟 발행량 계산기 및 차트">
     <meta property="og:description" content="기간별 비트코인(BTC)과 이더리움(ETH)의 공급량 누적 증가 추이를 실시간 가격과 함께 차트로 확인하세요.">
     <meta property="og:image" content="https://your-website-url.com/og-image.png">
 
-    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://your-website-url.com/">
     <meta property="twitter:title" content="BTC/ETH 공급량 계산기 및 차트 | CryptoFlow Tracker">
     <meta property="twitter:description" content="기간별 비트코인(BTC)과 이더리움(ETH)의 공급량 누적 증가 추이를 실시간 가격과 함께 차트로 확인하세요.">
     <meta property="twitter:image" content="https://your-website-url.com/twitter-image.png">
     
-    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" referrerpolicy="no-referrer" rel="stylesheet"/>
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" referrerpolicy="no-referrer" rel="stylesheet"/>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body { font-family: 'Noto Sans KR', sans-serif; margin: 0; background-color: #121826; color: #E5ECF6; display: flex; flex-direction: column; min-height: 100vh; }
@@ -39,7 +37,7 @@
         .coin-switcher button:hover { background-color: #3e5681; }
         .coin-switcher button.active { background-color: #FFB800; color: #121826; border-color: #FFB800; }
         .coin-switcher button i { margin-right: 8px; }
-        .header-metrics { display: flex; gap: 40px; }
+        .header-metrics { display: flex; align-items: center; gap: 20px; } /* Modified */
         .live-crypto-price { text-align: right; }
         .live-crypto-price .price { font-size: 28px; font-weight: bold; }
         .live-crypto-price .change { font-size: 16px; }
@@ -69,12 +67,26 @@
         #btc-calculator .value { color: #f7931a; }
         #eth-calculator .value { color: #627eea; }
         .chart-container { margin-top: 30px; padding-top: 20px; border-top: 1px solid #2a3f5f; }
-        input[type="date"]::-webkit-calendar-picker-indicator {
-    filter: invert(1);
-    cursor: pointer;
-}
+        input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); cursor: pointer; }
+
+        .info-section { margin-top: 40px; padding-top: 25px; border-top: 1px solid #2a3f5f; text-align: left; line-height: 1.8; }
+        .info-section h3 { font-size: 1.4em; color: #E5ECF6; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #2a3f5f; }
+        #btc-calculator .info-section h3 { color: #f7931a; }
+        #eth-calculator .info-section h3 { color: #627eea; }
+        .info-section h4 { font-size: 1.2em; color: #aebacd; margin-top: 25px; margin-bottom: 10px; }
+        .info-section h5 { font-size: 1.1em; color: #E5ECF6; margin-top: 20px; margin-bottom: 5px; }
+        .info-section p { font-size: 0.95em; color: #cdd7e5; }
+        .info-section ul { list-style-type: none; padding-left: 0; }
+        .info-section ul li { margin-bottom: 8px; padding-left: 20px; position: relative; font-size: 0.95em; color: #cdd7e5; }
+        .info-section ul li::before { content: '▪'; position: absolute; left: 0; color: #FFB800; }
+        
+        /* --- Style for Language Switcher --- */
+        .lang-switcher { display: flex; gap: 8px; }
+        .lang-switcher button { background-color: #2a3f5f; color: #E5ECF6; border: 1px solid #2a3f5f; padding: 6px 12px; border-radius: 15px; cursor: pointer; font-size: 13px; transition: all 0.2s; }
+        .lang-switcher button:hover { background-color: #3e5681; }
+        .lang-switcher button.active { background-color: #aebacd; color: #121826; font-weight: bold; border-color: #aebacd;}
+
     </style>
-<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ST7JJ32CZE"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -89,7 +101,7 @@
 <div class="container">
 <header>
 <div class="logo-section">
-    <h1 class="logo"><a href="#">비트코인·이더리움 공급량 및 발행량 계산기</a></h1>
+    <h1 class="logo"><a href="#" data-lang-key="headerTitle">비트코인·이더리움 공급량 및 발행량 계산기</a></h1>
     <div class="coin-switcher">
         <button class="active" id="btn-btc"><i class="fa-brands fa-bitcoin"></i>BTC</button>
         <button id="btn-eth"><i class="fa-brands fa-ethereum"></i>ETH</button>
@@ -97,8 +109,12 @@
     <div class="timestamp" id="timestamp-display">Loading time...</div>
 </div>
 <div class="header-metrics">
+    <div class="lang-switcher">
+        <button id="lang-ko" class="active">🇰🇷 한국어</button>
+        <button id="lang-en">🇺🇸 English</button>
+    </div>
     <div class="live-crypto-price">
-        <div id="price-title">Bitcoin Price</div>
+        <div id="price-title" data-lang-key="btcPriceTitle">비트코인 가격</div>
         <div class="price" id="crypto-price">Loading...</div>
         <div class="change" id="crypto-change"></div>
     </div>
@@ -106,73 +122,104 @@
 </header>
 <main>
     <section class="calculator-section">
-        <!-- BTC Calculator -->
         <div id="btc-calculator" class="calculator">
             <div class="calculator-header">
-                <h2>비트코인(BTC) 공급량 및 발행량 실시간 추적 </h2>
-                <h5>since 2009-01-03 (당일 -2일까지 조회 가능)</h5>
+                <h2 data-lang-key="btcCalcTitle">비트코인(BTC) 공급량 및 발행량 실시간 추적</h2>
+                <h5 data-lang-key="btcCalcSubTitle">since 2009-01-03 (당일 -2일까지 조회 가능)</h5>
             </div>
             <div class="input-group">
                 <div class="input-field">
-                    <label for="btc-startDate">시작일 (Start Date)</label>
+                    <label for="btc-startDate" data-lang-key="startDateLabel">시작일 (Start Date)</label>
                     <input type="date" id="btc-startDate">
                 </div>
                 <div class="input-field">
-                    <label for="btc-endDate">종료일 (End Date)</label>
+                    <label for="btc-endDate" data-lang-key="endDateLabel">종료일 (End Date)</label>
                     <input type="date" id="btc-endDate">
                 </div>
             </div>
-            <button id="btc-calculateBtn">계산하기</button>
+            <button id="btc-calculateBtn" data-lang-key="calcButton">계산하기</button>
             <div id="results-btc" class="hidden">
                 <div class="result-item">
-                    <span class="label">📈 증가된 BTC의 양:</span>
+                    <span class="label" data-lang-key="btcResultAmount">📈 증가된 BTC의 양:</span>
                     <span class="value" id="btc-supply-increase-abs"></span>
                 </div>
                 <div class="result-item">
-                    <span class="label">📊 기간 내 증가율:</span>
+                    <span class="label" data-lang-key="btcResultRate">📊 기간 내 증가율:</span>
                     <span class="value" id="btc-supply-increase-pct"></span>
                 </div>
             </div>
             <div id="chart-container-btc" class="chart-container hidden">
                 <canvas id="btcSupplyChart"></canvas>
             </div>
+
+            <div class="info-section">
+                <h3 data-lang-key="btcInfoTitle1">비트코인 발행 구조</h3>
+                <p data-lang-key="btcInfoDesc1">2009년 사토시 나카모토가 개발한 비트코인 시스템은 초창기에 블록당 50개의 비트코인이 보상으로 주어졌습니다. 210,000개의 블록이 생성될 때마다 채굴 보상이 절반으로 줄어드는 '반감기'가 발생하며, 블록은 약 10분마다 하나씩 생성되도록 난이도가 조절됩니다. 이 때문에 반감기는 약 4년 주기로 발생합니다. 2024년 4월 네 번째 반감기를 지나 현재는 블록당 3.125개가 채굴되고 있습니다.</p>
+                <h4 data-lang-key="btcInfoTitle2">과거 비트코인 반감기 발생 일자</h4>
+                <ul>
+                    <li data-lang-key="btcHalving1"><b>첫 번째 반감기:</b> 2012년 11월 28일 (블록 보상: 50 BTC → 25 BTC)</li>
+                    <li data-lang-key="btcHalving2"><b>두 번째 반감기:</b> 2016년 7월 9일 (블록 보상: 25 BTC → 12.5 BTC)</li>
+                    <li data-lang-key="btcHalving3"><b>세 번째 반감기:</b> 2020년 5월 11일 (블록 보상: 12.5 BTC → 6.25 BTC)</li>
+                    <li data-lang-key="btcHalving4"><b>네 번째 반감기:</b> 2024년 4월 20일 (블록 보상: 6.25 BTC → 3.125 BTC)</li>
+                </ul>
+            </div>
         </div>
 
-        <!-- ETH Calculator -->
         <div id="eth-calculator" class="calculator hidden">
              <div class="calculator-header">
-                <h2>이더리움(ETH) 공급량 및 발행량 실시간 추적</h2>
-                <h5>since 2015-07-30 (당일 -2일까지 조회 가능)</h5>
+                <h2 data-lang-key="ethCalcTitle">이더리움(ETH) 공급량 및 발행량 실시간 추적</h2>
+                <h5 data-lang-key="ethCalcSubTitle">since 2015-07-30 (당일 -2일까지 조회 가능)</h5>
             </div>
             <div class="input-group">
                 <div class="input-field">
-                    <label for="eth-startDate">시작일 (Start Date)</label>
+                    <label for="eth-startDate" data-lang-key="startDateLabel">시작일 (Start Date)</label>
                     <input type="date" id="eth-startDate">
                 </div>
                 <div class="input-field">
-                    <label for="eth-endDate">종료일 (End Date)</label>
+                    <label for="eth-endDate" data-lang-key="endDateLabel">종료일 (End Date)</label>
                     <input type="date" id="eth-endDate">
                 </div>
             </div>
-            <button id="eth-calculateBtn">계산하기</button>
+            <button id="eth-calculateBtn" data-lang-key="calcButton">계산하기</button>
             <div id="results-eth" class="hidden">
                 <div class="result-item">
-                    <span class="label">📈 증가된 ETH의 양:</span>
+                    <span class="label" data-lang-key="ethResultAmount">📈 증가된 ETH의 양:</span>
                     <span class="value" id="eth-supply-increase-abs"></span>
                 </div>
                 <div class="result-item">
-                    <span class="label">📊 기간 내 증가율:</span>
+                    <span class="label" data-lang-key="ethResultRate">📊 기간 내 증가율:</span>
                     <span class="value" id="eth-supply-increase-pct"></span>
                 </div>
             </div>
             <div id="chart-container-eth" class="chart-container hidden">
                 <canvas id="ethSupplyChart"></canvas>
             </div>
+            
+            <div class="info-section">
+                <h3 data-lang-key="ethInfoTitle1">이더리움 발행 구조</h3>
+                <p data-lang-key="ethInfoDesc1">런던 하드포크를 통해 이더리움 소각 시스템이 처음 적용되었습니다. 이 소각 시스템이 이더리움이 디플레이션 자산으로 향하게 하는 중요한 역할을 하고 있습니다. 이러한 부분 때문에 이더리움의 발행량은 비트코인에 비해 일정한 개수로 증가하지 않으며, 네트워크 사용량에 따라 발행량이 변화하게 됩니다. 기존에는 작업증명 방식으로 채굴을 통해 이더리움이 신규 발행되었으나, 더 머지 업데이트 이후로는 지분 증명 방식으로 전환되어 네트워크 운영에 필요한 전력 사용량이 99% 감소하였습니다.</p>
+                
+                <h4 data-lang-key="ethInfoTitle2">이더리움 수수료의 구조</h4>
+                <p data-lang-key="ethInfoDesc2">이더리움의 거래 수수료(가스비)는 <strong>'기본 수수료(Base Fee)'</strong>와 '우선 수수료(Priority Fee, 팁)' 두 부분으로 구성됩니다.</p>
+                
+                <h5 data-lang-key="ethFeeTitle1">기본 수수료 (Base Fee) 🔥: 소각되는 부분</h5>
+                <p data-lang-key="ethFeeDesc1">이 수수료는 고정되어 있지 않습니다. 바로 이전 블록이 얼마나 가득 찼는지에 따라 알고리즘에 의해 자동으로 조절됩니다.</p>
+                <ul>
+                    <li data-lang-key="ethFeePoint1">네트워크가 혼잡하면 (이전 블록이 목표치보다 컸으면) → 기본 수수료는 상승합니다.</li>
+                    <li data-lang-key="ethFeePoint2">네트워크가 한산하면 (이전 블록이 목표치보다 작았으면) → 기본 수수료는 하락합니다.</li>
+                </ul>
+                <p data-lang-key="ethFeeDesc2">사용자가 지불한 이 기본 수수료는 검증인(Validator)에게 가지 않고 100% 소각되어 영원히 사라집니다.</p>
+            
+                <h5 data-lang-key="ethFeeTitle2">우선 수수료 (Priority Fee / Tip) 💰: 검증인에게 가는 보상</h5>
+                <p data-lang-key="ethFeeDesc3">사용자가 자신의 거래를 더 빨리 처리해달라고 검증인(스테이킹한 사람)에게 주는 보상입니다. 이 보상은 선택 사항이며, 사용자가 직접 설정합니다. 네트워크가 붐빌 때 더 높은 팁을 제시하면 거래가 블록에 포함될 확률이 높아집니다. 거래가 빨리 체결될 수 있다는 의미입니다. 이 팁은 소각되지 않고, 해당 블록을 생성한 검증인에게 직접 보상으로 지급됩니다.</p>
+                
+                <p style="margin-top: 20px;" data-lang-key="ethFeeSummary">사용자는 거래를 일으키며 <strong>기본 수수료 + 우선 수수료(팁)</strong>를 지불합니다. 이 중 기본 수수료는 네트워크에서 소각되어 이더리움의 총공급량을 줄이는 역할을 합니다. <strong>우선 수수료(팁)</strong>는 블록을 생성한 검증인에게 직접적인 수익으로 돌아갑니다. 이와는 별개로, 이더리움 프로토콜 자체는 스테이킹에 참여한 모든 검증인에게 신규 이더리움(ETH)을 발행하여 보상으로 지급합니다.</p>
+            </div>
         </div>
     </section>
 </main>
 <footer>
- <p>Website ver: 1.0.0 ver | <a href="release-notes.html">Release note 바로가기</a></p>
+ <p data-lang-key="footerVersion">Website ver: 1.2.0 ver | <a href="release-notes.html">Release note 바로가기</a></p>
 <p>Created by: <a href="mailto:dlwpsms3gkrsus@gmail.com">dlwpsms3gkrsus@gmail.com</a></p>
 <p>naver blog: <a href="https://blog.naver.com/jsw3500">jsw3500@naver.com</a></p>
 </footer>
@@ -183,6 +230,124 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+        // --- START: Language Switching Logic ---
+
+        const langKoBtn = document.getElementById('lang-ko');
+        const langEnBtn = document.getElementById('lang-en');
+        let currentLang = 'ko'; // Default language
+
+        const translations = {
+            ko: {
+                pageTitle: "비트코인·이더리움 공급량 및 발행량 계산기",
+                headerTitle: "비트코인·이더리움 공급량 및 발행량 계산기",
+                btcPriceTitle: "비트코인 가격",
+                ethPriceTitle: "이더리움 가격",
+                btcCalcTitle: "비트코인(BTC) 공급량 및 발행량 실시간 추적",
+                btcCalcSubTitle: "since 2009-01-03 (당일 -2일까지 조회 가능)",
+                ethCalcTitle: "이더리움(ETH) 공급량 및 발행량 실시간 추적",
+                ethCalcSubTitle: "since 2015-07-30 (당일 -2일까지 조회 가능)",
+                startDateLabel: "시작일 (Start Date)",
+                endDateLabel: "종료일 (End Date)",
+                calcButton: "계산하기",
+                btcResultAmount: "📈 증가된 BTC의 양:",
+                btcResultRate: "📊 기간 내 증가율:",
+                ethResultAmount: "📈 증가된 ETH의 양:",
+                ethResultRate: "📊 기간 내 증가율:",
+                btcInfoTitle1: "비트코인 발행 구조",
+                btcInfoDesc1: "2009년 사토시 나카모토가 개발한 비트코인 시스템은 초창기에 블록당 50개의 비트코인이 보상으로 주어졌습니다. 210,000개의 블록이 생성될 때마다 채굴 보상이 절반으로 줄어드는 '반감기'가 발생하며, 블록은 약 10분마다 하나씩 생성되도록 난이도가 조절됩니다. 이 때문에 반감기는 약 4년 주기로 발생합니다. 2024년 4월 네 번째 반감기를 지나 현재는 블록당 3.125개가 채굴되고 있습니다.",
+                btcInfoTitle2: "과거 비트코인 반감기 발생 일자",
+                btcHalving1: "첫 번째 반감기: 2012년 11월 28일 (블록 보상: 50 BTC → 25 BTC)",
+                btcHalving2: "두 번째 반감기: 2016년 7월 9일 (블록 보상: 25 BTC → 12.5 BTC)",
+                btcHalving3: "세 번째 반감기: 2020년 5월 11일 (블록 보상: 12.5 BTC → 6.25 BTC)",
+                btcHalving4: "네 번째 반감기: 2024년 4월 20일 (블록 보상: 6.25 BTC → 3.125 BTC)",
+                ethInfoTitle1: "이더리움 발행 구조",
+                ethInfoDesc1: "런던 하드포크를 통해 이더리움 소각 시스템이 처음 적용되었습니다. 이 소각 시스템이 이더리움이 디플레이션 자산으로 향하게 하는 중요한 역할을 하고 있습니다. 이러한 부분 때문에 이더리움의 발행량은 비트코인에 비해 일정한 개수로 증가하지 않으며, 네트워크 사용량에 따라 발행량이 변화하게 됩니다. 기존에는 작업증명 방식으로 채굴을 통해 이더리움이 신규 발행되었으나, 더 머지 업데이트 이후로는 지분 증명 방식으로 전환되어 네트워크 운영에 필요한 전력 사용량이 99% 감소하였습니다.",
+                ethInfoTitle2: "이더리움 수수료의 구조",
+                ethInfoDesc2: "이더리움의 거래 수수료(가스비)는 '기본 수수료(Base Fee)'와 '우선 수수료(Priority Fee, 팁)' 두 부분으로 구성됩니다.",
+                ethFeeTitle1: "기본 수수료 (Base Fee) 🔥: 소각되는 부분",
+                ethFeeDesc1: "이 수수료는 고정되어 있지 않습니다. 바로 이전 블록이 얼마나 가득 찼는지에 따라 알고리즘에 의해 자동으로 조절됩니다.",
+                ethFeePoint1: "네트워크가 혼잡하면 (이전 블록이 목표치보다 컸으면) → 기본 수수료는 상승합니다.",
+                ethFeePoint2: "네트워크가 한산하면 (이전 블록이 목표치보다 작았으면) → 기본 수수료는 하락합니다.",
+                ethFeeDesc2: "사용자가 지불한 이 기본 수수료는 검증인(Validator)에게 가지 않고 100% 소각되어 영원히 사라집니다.",
+                ethFeeTitle2: "우선 수수료 (Priority Fee / Tip) 💰: 검증인에게 가는 보상",
+                ethFeeDesc3: "사용자가 자신의 거래를 더 빨리 처리해달라고 검증인(스테이킹한 사람)에게 주는 보상입니다. 이 보상은 선택 사항이며, 사용자가 직접 설정합니다. 네트워크가 붐빌 때 더 높은 팁을 제시하면 거래가 블록에 포함될 확률이 높아집니다. 거래가 빨리 체결될 수 있다는 의미입니다. 이 팁은 소각되지 않고, 해당 블록을 생성한 검증인에게 직접 보상으로 지급됩니다.",
+                ethFeeSummary: "사용자는 거래를 일으키며 기본 수수료 + 우선 수수료(팁)를 지불합니다. 이 중 기본 수수료는 네트워크에서 소각되어 이더리움의 총공급량을 줄이는 역할을 합니다. 우선 수수료(팁)는 블록을 생성한 검증인에게 직접적인 수익으로 돌아갑니다. 이와는 별개로, 이더리움 프로토콜 자체는 스테이킹에 참여한 모든 검증인에게 신규 이더리움(ETH)을 발행하여 보상으로 지급합니다.",
+                footerVersion: "웹사이트 버전: 1.1.0 ver | <a href='release-notes.html'>릴리즈 노트 바로가기</a>"
+            },
+            en: {
+                pageTitle: "Bitcoin & Ethereum Supply Calculator",
+                headerTitle: "Bitcoin & Ethereum Supply Calculator",
+                btcPriceTitle: "Bitcoin Price",
+                ethPriceTitle: "Ethereum Price",
+                btcCalcTitle: "Bitcoin (BTC) Supply & Issuance Tracker",
+                btcCalcSubTitle: "since 2009-01-03 (Data available up to 2 days ago)",
+                ethCalcTitle: "Ethereum (ETH) Supply & Issuance Tracker",
+                ethCalcSubTitle: "since 2015-07-30 (Data available up to 2 days ago)",
+                startDateLabel: "Start Date",
+                endDateLabel: "End Date",
+                calcButton: "Calculate",
+                btcResultAmount: "📈 Amount of BTC Increased:",
+                btcResultRate: "📊 Increase Rate for Period:",
+                ethResultAmount: "📈 Amount of ETH Increased:",
+                ethResultRate: "📊 Increase Rate for Period:",
+                btcInfoTitle1: "Bitcoin Issuance Structure",
+                btcInfoDesc1: "Developed by Satoshi Nakamoto in 2009, the Bitcoin system initially rewarded 50 BTC per block. A 'halving' event occurs every 210,000 blocks, reducing the mining reward by half. The network difficulty is adjusted to target a 10-minute block time, which makes the halving cycle approximately four years long. After the fourth halving in April 2024, the current block reward is 3.125 BTC.",
+                btcInfoTitle2: "Past Bitcoin Halving Dates",
+                btcHalving1: "First Halving: Nov 28, 2012 (Block Reward: 50 BTC → 25 BTC)",
+                btcHalving2: "Second Halving: Jul 9, 2016 (Block Reward: 25 BTC → 12.5 BTC)",
+                btcHalving3: "Third Halving: May 11, 2020 (Block Reward: 12.5 BTC → 6.25 BTC)",
+                btcHalving4: "Fourth Halving: Apr 20, 2024 (Block Reward: 6.25 BTC → 3.125 BTC)",
+                ethInfoTitle1: "Ethereum Issuance Structure",
+                ethInfoDesc1: "The Ethereum burn mechanism was introduced with the London hard fork, playing a key role in making ETH a potentially deflationary asset. Unlike Bitcoin, Ethereum's issuance rate is not fixed and changes based on network usage. Previously issued through Proof-of-Work mining, Ethereum transitioned to Proof-of-Stake after 'The Merge' update, reducing its energy consumption by 99%.",
+                ethInfoTitle2: "Ethereum Fee Structure",
+                ethInfoDesc2: "Ethereum's transaction fee (gas) consists of two parts: the 'Base Fee' and the 'Priority Fee (Tip)'.",
+                ethFeeTitle1: "Base Fee 🔥: The Burnt Portion",
+                ethFeeDesc1: "This fee is not fixed. It's algorithmically adjusted based on how full the previous block was.",
+                ethFeePoint1: "If the network is congested (previous block was larger than the target) → the base fee increases.",
+                ethFeePoint2: "If the network is not busy (previous block was smaller than the target) → the base fee decreases.",
+                ethFeeDesc2: "The base fee paid by a user is 100% burned and permanently removed from circulation, not given to the validator.",
+                ethFeeTitle2: "Priority Fee / Tip 💰: The Validator's Reward",
+                ethFeeDesc3: "This is a tip a user can give to a validator to have their transaction processed faster. This tip is optional and set by the user. Offering a higher tip during busy times increases the probability of the transaction being included in the next block. This tip is not burned and is paid directly to the validator who creates the block.",
+                ethFeeSummary: "Users pay a total of Base Fee + Priority Fee (Tip). The Base Fee is burned, reducing the total supply of Ethereum. The Priority Fee (Tip) goes directly to the validator as profit. Separately, the Ethereum protocol itself issues new ETH as a reward to all validators participating in staking.",
+                footerVersion: "Website ver: 1.1.0 ver | <a href='release-notes.html'>Go to Release Notes</a>"
+            }
+        };
+
+        const setLanguage = (lang) => {
+            currentLang = lang;
+            document.documentElement.lang = lang; // Set the lang attribute of the <html> tag
+
+            document.querySelectorAll('[data-lang-key]').forEach(element => {
+                const key = element.getAttribute('data-lang-key');
+                if (translations[lang] && translations[lang][key]) {
+                    // Use innerHTML for elements that might contain other HTML tags like <a> or <strong>
+                    if (key === 'footerVersion' || key === 'ethInfoDesc2' || key === 'ethFeeSummary') {
+                         element.innerHTML = translations[lang][key];
+                    } else {
+                         element.textContent = translations[lang][key];
+                    }
+                }
+            });
+
+            // Update button active state
+            if (lang === 'ko') {
+                langKoBtn.classList.add('active');
+                langEnBtn.classList.remove('active');
+            } else {
+                langEnBtn.classList.add('active');
+                langKoBtn.classList.remove('active');
+            }
+
+            // Save preference to localStorage
+            localStorage.setItem('language', lang);
+        };
+
+        langKoBtn.addEventListener('click', () => setLanguage('ko'));
+        langEnBtn.addEventListener('click', () => setLanguage('en'));
+
+        // --- END: Language Switching Logic ---
+
+
         // --- DOM Elements ---
         const btcBtn = document.getElementById('btn-btc');
         const ethBtn = document.getElementById('btn-eth');
@@ -221,7 +386,26 @@
 
         // --- Data Fetching Functions ---
         async function fetchPrice(coin) {
-             try { const response = await fetch(`https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${coin}&tsyms=USD`); const data = await response.json(); const priceData = data.RAW[coin].USD; priceTitleElement.innerText = `${coin === 'BTC' ? 'Bitcoin' : 'Ethereum'} Price`; cryptoPriceElement.innerText = `$${priceData.PRICE.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`; const sign = priceData.CHANGE24HOUR >= 0 ? '+' : ''; cryptoChangeElement.innerText = `${sign}${priceData.CHANGE24HOUR.toFixed(2)} (${sign}${priceData.CHANGEPCT24HOUR.toFixed(2)}%)`; cryptoPriceElement.classList.toggle('up', priceData.PRICE > lastPrice); cryptoPriceElement.classList.toggle('down', priceData.PRICE < lastPrice); cryptoChangeElement.classList.toggle('up', priceData.CHANGE24HOUR >= 0); cryptoChangeElement.classList.toggle('down', priceData.CHANGE24HOUR < 0); lastPrice = priceData.PRICE; } catch (error) { console.error(`Error fetching ${coin} price:`, error); } 
+             try { 
+                const response = await fetch(`https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${coin}&tsyms=USD`); 
+                const data = await response.json(); 
+                const priceData = data.RAW[coin].USD; 
+                
+                // Set price title text based on current language
+                const priceTitleKey = coin === 'BTC' ? 'btcPriceTitle' : 'ethPriceTitle';
+                priceTitleElement.textContent = translations[currentLang][priceTitleKey];
+
+                cryptoPriceElement.innerText = `$${priceData.PRICE.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`; 
+                const sign = priceData.CHANGE24HOUR >= 0 ? '+' : ''; 
+                cryptoChangeElement.innerText = `${sign}${priceData.CHANGE24HOUR.toFixed(2)} (${sign}${priceData.CHANGEPCT24HOUR.toFixed(2)}%)`; 
+                cryptoPriceElement.classList.toggle('up', priceData.PRICE > lastPrice); 
+                cryptoPriceElement.classList.toggle('down', priceData.PRICE < lastPrice); 
+                cryptoChangeElement.classList.toggle('up', priceData.CHANGE24HOUR >= 0); 
+                cryptoChangeElement.classList.toggle('down', priceData.CHANGE24HOUR < 0); 
+                lastPrice = priceData.PRICE; 
+            } catch (error) { 
+                console.error(`Error fetching ${coin} price:`, error); 
+            } 
         }
 
         function displayCurrentTime() {
@@ -276,11 +460,11 @@
             const endDateStr = document.getElementById(`${coinPrefix}-endDate`).value;
 
             if (!startDateStr || !endDateStr) {
-                alert("시작일과 종료일을 모두 선택해주세요.");
+                alert(currentLang === 'ko' ? "시작일과 종료일을 모두 선택해주세요." : "Please select both a start and end date.");
                 return;
             }
             if (startDateStr >= endDateStr) {
-                alert("종료일은 시작일보다 이후 날짜여야 합니다.");
+                alert(currentLang === 'ko' ? "종료일은 시작일보다 이후 날짜여야 합니다." : "The end date must be after the start date.");
                 return;
             }
             
@@ -288,7 +472,7 @@
             const endSupply = supplyMap.get(endDateStr);
 
             if (startSupply === undefined || endSupply === undefined) {
-                alert("선택하신 날짜에 대한 데이터가 없습니다. 다른 날짜를 선택해주세요.");
+                alert(currentLang === 'ko' ? "선택하신 날짜에 대한 데이터가 없습니다. 다른 날짜를 선택해주세요." : "No data available for the selected dates. Please choose different dates.");
                 return;
             }
 
@@ -324,6 +508,8 @@
             if (chartInstance) {
                 chartInstance.destroy();
             }
+            
+            const chartLabel = currentLang === 'ko' ? `누적 공급량 증가 (${coinPrefix.toUpperCase()})` : `Cumulative Supply Increase (${coinPrefix.toUpperCase()})`;
 
             const ctx = document.getElementById(`${coinPrefix}SupplyChart`).getContext('2d');
             const newChartInstance = new Chart(ctx, {
@@ -331,7 +517,7 @@
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: `누적 공급량 증가 (${coinPrefix.toUpperCase()})`,
+                        label: chartLabel,
                         data: data,
                         borderColor: coinPrefix === 'btc' ? '#f7931a' : '#627eea',
                         backgroundColor: coinPrefix === 'btc' ? 'rgba(247, 147, 26, 0.2)' : 'rgba(98, 126, 234, 0.2)',
@@ -344,40 +530,12 @@
                     responsive: true,
                     maintainAspectRatio: true,
                     scales: {
-                        x: {
-                            ticks: { color: '#aebacd' },
-                            grid: { color: 'rgba(174, 186, 205, 0.2)' }
-                        },
-                        y: {
-                            ticks: { 
-                                color: '#aebacd',
-                                callback: function(value) {
-                                    if (Math.abs(value) >= 1000000) return (value / 1000000).toFixed(2) + 'M';
-                                    if (Math.abs(value) >= 1000) return (value / 1000).toFixed(2) + 'K';
-                                    return value.toLocaleString(undefined, {maximumFractionDigits: 0});
-                                }
-                            },
-                            grid: { color: 'rgba(174, 186, 205, 0.2)' }
-                        }
+                        x: { ticks: { color: '#aebacd' }, grid: { color: 'rgba(174, 186, 205, 0.2)' } },
+                        y: { ticks: { color: '#aebacd', callback: function(value) { if (Math.abs(value) >= 1000000) return (value / 1000000).toFixed(2) + 'M'; if (Math.abs(value) >= 1000) return (value / 1000).toFixed(2) + 'K'; return value.toLocaleString(undefined, {maximumFractionDigits: 0}); } }, grid: { color: 'rgba(174, 186, 205, 0.2)' } }
                     },
                     plugins: {
-                        legend: {
-                            labels: { color: '#E5ECF6' }
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    let label = context.dataset.label || '';
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    if (context.parsed.y !== null) {
-                                        label += context.parsed.y.toLocaleString(undefined, {maximumFractionDigits: 2});
-                                    }
-                                    return label;
-                                }
-                            }
-                        }
+                        legend: { labels: { color: '#E5ECF6' } },
+                        tooltip: { callbacks: { label: function(context) { let label = context.dataset.label || ''; if (label) { label += ': '; } if (context.parsed.y !== null) { label += context.parsed.y.toLocaleString(undefined, {maximumFractionDigits: 2}); } return label; } } }
                     }
                 }
             });
@@ -391,6 +549,9 @@
 
 
         // --- Initial Load & Interval Updates ---
+        const savedLang = localStorage.getItem('language') || 'ko';
+        setLanguage(savedLang);
+
         updateDashboard();
         displayCurrentTime();
         setInterval(displayCurrentTime, 1000);
@@ -399,7 +560,3 @@
 </script>
 </body>
 </html>
-
-
-
-
