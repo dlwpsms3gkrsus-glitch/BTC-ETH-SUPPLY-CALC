@@ -1,4 +1,4 @@
-비트코인 이더리움 공급량 및 발행량 계산기: BTC & ETH Spot ETF Dashboard [https://dlwpsms3gkrsus-glitch.github.io/](https://dlwpsms3gkrsus-glitch.github.io/BTC-ETH_SUPPLY_CALC/)
+비트코인 이더리움 공급량 및 발행량 계산기: BTC & ETH Spot ETF Dashboard [https://coinsuplycalc.com)
 
 ➡️ Live Demo Website 바로가기 https://dlwpsms3gkrsus-glitch.github.io/](https://dlwpsms3gkrsus-glitch.github.io/BTC-ETH_SUPPLY_CALC/
 
