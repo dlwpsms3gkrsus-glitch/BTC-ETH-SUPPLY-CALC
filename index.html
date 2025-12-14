@@ -134,6 +134,83 @@
             transform: translateY(-2px); /* 살짝 올라오는 효과 */
         }
 
+        /* =========================================
+       [Step 1] SEO 정보 섹션 디자인 (다크 모드 최적화)
+       ========================================= */
+    .seo-info-wrapper {
+        margin-top: 50px;
+        padding-top: 40px;
+        border-top: 1px solid #2a3f5f; /* 기존 구분선 색상 통일 */
+    }
+
+    .seo-article {
+        margin-bottom: 40px;
+        color: #cdd7e5; /* 본문 텍스트 색상 */
+    }
+
+    .seo-title {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: #E5ECF6;
+        margin-bottom: 20px;
+        border-left: 4px solid;
+        padding-left: 15px;
+    }
+
+    /* 코인별 포인트 컬러 적용 */
+    .btc-theme .seo-title { border-color: #f7931a; }
+    .eth-theme .seo-title { border-color: #627eea; }
+
+    .seo-article p {
+        line-height: 1.8;
+        margin-bottom: 15px;
+        font-size: 0.95em;
+    }
+
+    /* FAQ 아코디언 스타일 */
+    details.faq-item {
+        background-color: #1A2233; /* 입력창 배경색과 통일 */
+        border: 1px solid #2a3f5f;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        overflow: hidden;
+    }
+
+    details.faq-item summary {
+        padding: 15px 20px;
+        cursor: pointer;
+        font-weight: bold;
+        color: #E5ECF6;
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: background-color 0.2s;
+    }
+
+    details.faq-item summary:hover {
+        background-color: #232e42;
+    }
+
+    details.faq-item summary::after {
+        content: "▼";
+        font-size: 12px;
+        color: #8c9db3;
+    }
+
+    details.faq-item[open] summary::after {
+        content: "▲";
+    }
+
+    details.faq-item .faq-answer {
+        padding: 20px;
+        border-top: 1px solid #2a3f5f;
+        background-color: #151b2b; /* 약간 더 어두운 배경 */
+        color: #cdd7e5;
+        line-height: 1.6;
+        font-size: 0.95em;
+    }
+
     </style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ST7JJ32CZE"></script>
 <script>
@@ -143,9 +220,6 @@
 
   gtag('config', 'G-ST7JJ32CZE');
 </script>
-
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5223166964784846"
-     crossorigin="anonymous"></script>
     
 </head>
 <body>
@@ -224,7 +298,7 @@
 
             <div class="info-section">
                 <h3 data-lang-key="btcInfoTitle1">비트코인 발행 구조</h3>
-                <p data-lang-key="btcInfoDesc1">2009년 사토시 나카모토가 개발한 비트코인 시스템은 초창기에 블록당 50개의 비트코인이 보상으로 주어졌습니다. 210,000개의 블록이 생성될 때마다 채굴 보상이 절반으로 줄어드는 '반감기'가 발생하며, 블록은 약 10분마다 하나씩 생성되도록 난이도가 조절됩니다. 이 때문에 반감기는 약 4년 주기로 발생합니다. 2024년 4월 네 번째 반감기를 지나 현재는 블록당 3.125개가 채굴되고 있습니다.</p>
+                <p data-lang-key="btcInfoDesc1">2009년 사토시 나카모토가 개발한 비트코인 시스템은 초창기에 블록당 50개의 비트코인이 보상으로 주어졌습니다. 21,000,000개의 블록이 생성될 때마다 채굴 보상이 절반으로 줄어드는 '반감기'가 발생하며, 블록은 약 10분마다 하나씩 생성되도록 난이도가 조절됩니다. 이 때문에 반감기는 약 4년 주기로 발생합니다. 2024년 4월 네 번째 반감기를 지나 현재는 블록당 3.125개가 채굴되고 있습니다.</p>
                 <h4 data-lang-key="btcInfoTitle2">과거 비트코인 반감기 발생 일자</h4>
                 <ul>
                     <li data-lang-key="btcHalving1"><b>첫 번째 반감기:</b> 2012년 11월 28일 (블록 보상: 50 BTC → 25 BTC)</li>
@@ -232,6 +306,37 @@
                     <li data-lang-key="btcHalving3"><b>세 번째 반감기:</b> 2020년 5월 11일 (블록 보상: 12.5 BTC → 6.25 BTC)</li>
                     <li data-lang-key="btcHalving4"><b>네 번째 반감기:</b> 2024년 4월 20일 (블록 보상: 6.25 BTC → 3.125 BTC)</li>
                 </ul>
+            </div>
+            <div class="seo-info-wrapper btc-theme">
+                <article class="seo-article">
+                    <h3 class="seo-title" data-lang-key="btcSeoTitle">비트코인의 희소성과 가치 저장 수단</h3>
+                    <p data-lang-key="btcSeoDesc1">
+                        비트코인은 인류 역사상 처음으로 수학적으로 검증 가능한 '디지털 희소성'을 구현했습니다. 
+                        총발행량이 2,100만 개로 고정되어 있어, 무제한으로 찍어낼 수 있는 법정화폐와 달리 인플레이션 헤지(Hedge) 수단으로 주목받습니다.
+                    </p>
+                    <p data-lang-key="btcSeoDesc2">
+                        특히 현물 ETF 승인 이후, 제도권 금융의 자본이 유입되면서 '디지털 금(Digital Gold)'으로서의 입지가 더욱 공고해졌습니다. 
+                        본 계산기를 통해 실제 블록체인 데이터에 기반한 정확한 공급량 증가 추이를 확인해보세요.
+                    </p>
+                </article>
+
+                <h3 class="seo-title" data-lang-key="faqTitle">자주 묻는 질문 (FAQ)</h3>
+                
+                <details class="faq-item">
+                    <summary data-lang-key="btcFaq1Q">Q. 비트코인 발행이 끝나면 채굴자는 보상을 못 받나요?</summary>
+                    <div class="faq-answer" data-lang-key="btcFaq1A">
+                        아닙니다. 2140년경 모든 비트코인이 채굴되면, 채굴자들은 신규 발행 보상 대신 '거래 수수료(Transaction Fee)'만을 수익으로 얻게 됩니다. 
+                        네트워크 사용량이 충분하다면 수수료만으로도 채굴 생태계가 유지될 수 있습니다.
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary data-lang-key="btcFaq2Q">Q. 반감기 이후 가격은 무조건 오르나요?</summary>
+                    <div class="faq-answer" data-lang-key="btcFaq2A">
+                        과거 데이터를 보면 반감기 이후 공급 충격으로 인해 가격이 상승하는 경향이 있었으나, 이것이 미래의 상승을 보장하지는 않습니다. 
+                        가격은 거시 경제 상황, 규제, 기술적 발전 등 다양한 요소의 영향을 받습니다.
+                    </div>
+                </details>
             </div>
         </div>
 
@@ -285,6 +390,37 @@
                 
                 <p style="margin-top: 20px;" data-lang-key="ethFeeSummary">사용자는 거래를 일으키며 <strong>기본 수수료 + 우선 수수료(팁)</strong>를 지불합니다. 이 중 기본 수수료는 네트워크에서 소각되어 이더리움의 총공급량을 줄이는 역할을 합니다. <strong>우선 수수료(팁)</strong>는 블록을 생성한 검증인에게 직접적인 수익으로 돌아갑니다. 이와는 별개로, 이더리움 프로토콜 자체는 스테이킹에 참여한 모든 검증인에게 신규 이더리움(ETH)을 발행하여 보상으로 지급합니다.</p>
             </div>
+            <div class="seo-info-wrapper eth-theme">
+                <article class="seo-article">
+                    <h3 class="seo-title" data-lang-key="ethSeoTitle">이더리움의 초음파 화폐(Ultrasound Money) 메커니즘</h3>
+                    <p data-lang-key="ethSeoDesc1">
+                        이더리움은 EIP-1559 업데이트를 통해 네트워크 수수료의 일부를 소각(Burn)하는 메커니즘을 도입했습니다. 
+                        네트워크 사용량이 많을수록 더 많은 ETH가 소각되며, 이는 신규 발행량을 상쇄하여 총공급량이 줄어드는 '디플레이션' 효과를 만듭니다.
+                    </p>
+                    <p data-lang-key="ethSeoDesc2">
+                        '더 머지(The Merge)' 이후 지분 증명(PoS)으로 전환되면서 신규 발행량이 대폭 감소했습니다. 
+                        이 계산기는 이러한 소각과 발행의 상관관계를 분석하여 실질적인 공급량 변화를 보여줍니다.
+                    </p>
+                </article>
+
+                <h3 class="seo-title" data-lang-key="faqTitle">자주 묻는 질문 (FAQ)</h3>
+                
+                <details class="faq-item">
+                    <summary data-lang-key="ethFaq1Q">Q. 이더리움 공급량은 무제한인가요?</summary>
+                    <div class="faq-answer" data-lang-key="ethFaq1A">
+                        비트코인처럼 최대 발행량이 코드에 고정되어 있지는 않습니다. 하지만 위에서 설명한 소각 메커니즘과 PoS 전환으로 인해, 
+                        네트워크 활동이 활발할 때는 발행되는 양보다 소각되는 양이 많아져 전체 공급량이 줄어드는 구조를 가지고 있습니다.
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary data-lang-key="ethFaq2Q">Q. 스테이킹(Staking)은 공급량에 어떤 영향을 주나요?</summary>
+                    <div class="faq-answer" data-lang-key="ethFaq2A">
+                        스테이킹된 이더리움은 락업(Lock-up)되어 시장에서 즉시 매도될 수 없습니다. 
+                        이는 시장의 유통 물량을 감소시키는 효과가 있어 가격 안정화에 기여할 수 있습니다.
+                    </div>
+                </details>
+            </div>
         </div>
     </section>
 </main>
@@ -325,7 +461,7 @@
                 ethResultAmount: "📈 증가된 ETH의 양:",
                 ethResultRate: "📊 기간 내 증가율:",
                 btcInfoTitle1: "비트코인 발행 구조",
-                btcInfoDesc1: "2009년 사토시 나카모토가 개발한 비트코인 시스템은 초창기에 블록당 50개의 비트코인이 보상으로 주어졌습니다. 210,000개의 블록이 생성될 때마다 채굴 보상이 절반으로 줄어드는 '반감기'가 발생하며, 블록은 약 10분마다 하나씩 생성되도록 난이도가 조절됩니다. 이 때문에 반감기는 약 4년 주기로 발생합니다. 2024년 4월 네 번째 반감기를 지나 현재는 블록당 3.125개가 채굴되고 있습니다.",
+                btcInfoDesc1: "2009년 사토시 나카모토가 개발한 비트코인 시스템은 초창기에 블록당 50개의 비트코인이 보상으로 주어졌습니다. 21,000,000개의 블록이 생성될 때마다 채굴 보상이 절반으로 줄어드는 '반감기'가 발생하며, 블록은 약 10분마다 하나씩 생성되도록 난이도가 조절됩니다. 이 때문에 반감기는 약 4년 주기로 발생합니다. 2024년 4월 네 번째 반감기를 지나 현재는 블록당 3.125개가 채굴되고 있습니다.",
                 btcInfoTitle2: "과거 비트코인 반감기 발생 일자",
                 btcHalving1: "첫 번째 반감기: 2012년 11월 28일 (블록 보상: 50 BTC → 25 BTC)",
                 btcHalving2: "두 번째 반감기: 2016년 7월 9일 (블록 보상: 25 BTC → 12.5 BTC)",
@@ -343,9 +479,25 @@
                 ethFeeTitle2: "우선 수수료 (Priority Fee / Tip) 💰: 검증인에게 가는 보상",
                 ethFeeDesc3: "사용자가 자신의 거래를 더 빨리 처리해달라고 검증인(스테이킹한 사람)에게 주는 보상입니다. 이 보상은 선택 사항이며, 사용자가 직접 설정합니다. 네트워크가 붐빌 때 더 높은 팁을 제시하면 거래가 블록에 포함될 확률이 높아집니다. 거래가 빨리 체결될 수 있다는 의미입니다. 이 팁은 소각되지 않고, 해당 블록을 생성한 검증인에게 직접 보상으로 지급됩니다.",
                 ethFeeSummary: "사용자는 거래를 일으키며 기본 수수료 + 우선 수수료(팁)를 지불합니다. 이 중 기본 수수료는 네트워크에서 소각되어 이더리움의 총공급량을 줄이는 역할을 합니다. 우선 수수료(팁)는 블록을 생성한 검증인에게 직접적인 수익으로 돌아갑니다. 이와는 별개로, 이더리움 프로토콜 자체는 스테이킹에 참여한 모든 검증인에게 신규 이더리움(ETH)을 발행하여 보상으로 지급합니다.",
-                footerVersion: "웹사이트 버전: 1.2.0 ver | <a href='release-notes.html'>릴리즈 노트 바로가기</a>",
+                footerVersion: "웹사이트 버전: 1.1.0 ver | <a href='release-notes.html'>릴리즈 노트 바로가기</a>",
                 tabMain: "공급량 계산기",
-                tabSub: "현물 ETF 자금 흐름"
+                tabSub: "현물 ETF 자금 흐름",
+                btcSeoTitle: "비트코인의 희소성과 가치 저장 수단",
+                btcSeoDesc1: "비트코인은 인류 역사상 처음으로 수학적으로 검증 가능한 '디지털 희소성'을 구현했습니다. 총발행량이 2,100만 개로 고정되어 있어, 무제한으로 찍어낼 수 있는 법정화폐와 달리 인플레이션 헤지(Hedge) 수단으로 주목받습니다.",
+                btcSeoDesc2: "특히 현물 ETF 승인 이후, 제도권 금융의 자본이 유입되면서 '디지털 금(Digital Gold)'으로서의 입지가 더욱 공고해졌습니다. 본 계산기를 통해 실제 블록체인 데이터에 기반한 정확한 공급량 증가 추이를 확인해보세요.",
+                faqTitle: "자주 묻는 질문 (FAQ)",
+                btcFaq1Q: "Q. 비트코인 발행이 끝나면 채굴자는 보상을 못 받나요?",
+                btcFaq1A: "아닙니다. 2140년경 모든 비트코인이 채굴되면, 채굴자들은 신규 발행 보상 대신 '거래 수수료(Transaction Fee)'만을 수익으로 얻게 됩니다. 네트워크 사용량이 충분하다면 수수료만으로도 채굴 생태계가 유지될 수 있습니다.",
+                btcFaq2Q: "Q. 반감기 이후 가격은 무조건 오르나요?",
+                btcFaq2A: "과거 데이터를 보면 반감기 이후 공급 충격으로 인해 가격이 상승하는 경향이 있었으나, 이것이 미래의 상승을 보장하지는 않습니다. 가격은 거시 경제 상황, 규제, 기술적 발전 등 다양한 요소의 영향을 받습니다.",
+                
+                ethSeoTitle: "이더리움의 초음파 화폐(Ultrasound Money) 메커니즘",
+                ethSeoDesc1: "이더리움은 EIP-1559 업데이트를 통해 네트워크 수수료의 일부를 소각(Burn)하는 메커니즘을 도입했습니다. 네트워크 사용량이 많을수록 더 많은 ETH가 소각되며, 이는 신규 발행량을 상쇄하여 총공급량이 줄어드는 '디플레이션' 효과를 만듭니다.",
+                ethSeoDesc2: "'더 머지(The Merge)' 이후 지분 증명(PoS)으로 전환되면서 신규 발행량이 대폭 감소했습니다. 이 계산기는 이러한 소각과 발행의 상관관계를 분석하여 실질적인 공급량 변화를 보여줍니다.",
+                ethFaq1Q: "Q. 이더리움 공급량은 무제한인가요?",
+                ethFaq1A: "비트코인처럼 최대 발행량이 코드에 고정되어 있지는 않습니다. 하지만 위에서 설명한 소각 메커니즘과 PoS 전환으로 인해, 네트워크 활동이 활발할 때는 발행되는 양보다 소각되는 양이 많아져 전체 공급량이 줄어드는 구조를 가지고 있습니다.",
+                ethFaq2Q: "Q. 스테이킹(Staking)은 공급량에 어떤 영향을 주나요?",
+                ethFaq2A: "스테이킹된 이더리움은 락업(Lock-up)되어 시장에서 즉시 매도될 수 없습니다. 이는 시장의 유통 물량을 감소시키는 효과가 있어 가격 안정화에 기여할 수 있습니다."
             },
             en: {
                 pageTitle: "CryptoFlow - Bitcoin & Ethereum Supply Calculator",
@@ -364,7 +516,7 @@
                 ethResultAmount: "📈 Amount of ETH Increased:",
                 ethResultRate: "📊 Increase Rate for Period:",
                 btcInfoTitle1: "Bitcoin Issuance Structure",
-                btcInfoDesc1: "Developed by Satoshi Nakamoto in 2009, the Bitcoin system initially rewarded 50 BTC per block. A 'halving' event occurs every 210,000 blocks, reducing the mining reward by half. The network difficulty is adjusted to target a 10-minute block time, which makes the halving cycle approximately four years long. After the fourth halving in April 2024, the current block reward is 3.125 BTC.",
+                btcInfoDesc1: "Developed by Satoshi Nakamoto in 2009, the Bitcoin system initially rewarded 50 BTC per block. A 'halving' event occurs every 21,000,000 blocks, reducing the mining reward by half. The network difficulty is adjusted to target a 10-minute block time, which makes the halving cycle approximately four years long. After the fourth halving in April 2024, the current block reward is 3.125 BTC.",
                 btcInfoTitle2: "Past Bitcoin Halving Dates",
                 btcHalving1: "First Halving: Nov 28, 2012 (Block Reward: 50 BTC → 25 BTC)",
                 btcHalving2: "Second Halving: Jul 9, 2016 (Block Reward: 25 BTC → 12.5 BTC)",
@@ -382,9 +534,25 @@
                 ethFeeTitle2: "Priority Fee / Tip 💰: The Validator's Reward",
                 ethFeeDesc3: "This is a tip a user can give to a validator to have their transaction processed faster. This tip is optional and set by the user. Offering a higher tip during busy times increases the probability of the transaction being included in the next block. This tip is not burned and is paid directly to the validator who creates the block.",
                 ethFeeSummary: "Users pay a total of Base Fee + Priority Fee (Tip). The Base Fee is burned, reducing the total supply of Ethereum. The Priority Fee (Tip) goes directly to the validator as profit. Separately, the Ethereum protocol itself issues new ETH as a reward to all validators participating in staking.",
-                footerVersion: "Website ver: 1.2.0 ver | <a href='release-notes.html'>Go to Release Notes</a>",
+                footerVersion: "Website ver: 1.1.0 ver | <a href='release-notes.html'>Go to Release Notes</a>",
                 tabMain: "Supply Calculator",
-                tabSub: "SPOT ETF Fund Flow"
+                tabSub: "SPOT ETF Fund Flow",
+                btcSeoTitle: "Bitcoin's Scarcity and Store of Value",
+                btcSeoDesc1: "Bitcoin implements 'digital scarcity' for the first time in history. With a fixed supply of 21 million coins, it serves as a hedge against inflation, unlike fiat currencies that can be printed without limit.",
+                btcSeoDesc2: "Following the approval of Spot ETFs, Bitcoin has solidified its position as 'Digital Gold' within the financial system. Use this calculator to track the actual supply growth based on blockchain data.",
+                faqTitle: "Frequently Asked Questions (FAQ)",
+                btcFaq1Q: "Q. Do miners stop earning after all Bitcoins are mined?",
+                btcFaq1A: "No. Around the year 2140, when all 21 million Bitcoins are mined, miners will earn revenue solely from 'Transaction Fees.' If network usage is sufficient, fees alone can sustain the mining ecosystem.",
+                btcFaq2Q: "Q. Does price always rise after a halving?",
+                btcFaq2A: "Historical data shows that prices tend to rise due to the supply shock after a halving, but this does not guarantee future gains. Prices are affected by macroeconomics, regulations, and technological developments.",
+                
+                ethSeoTitle: "Ethereum's Ultrasound Money Mechanism",
+                ethSeoDesc1: "Ethereum introduced a burn mechanism via EIP-1559. The more the network is used, the more ETH is burned, creating a deflationary effect that offsets new issuance.",
+                ethSeoDesc2: "Since 'The Merge' and the transition to Proof-of-Stake (PoS), new issuance has dropped significantly. This calculator analyzes the correlation between burn and issuance to show real supply changes.",
+                ethFaq1Q: "Q. Is Ethereum's supply unlimited?",
+                ethFaq1A: "Unlike Bitcoin, there is no hard cap in the code. However, due to the burn mechanism and PoS transition, when network activity is high, more ETH is burned than issued, reducing the total supply.",
+                ethFaq2Q: "Q. How does staking affect supply?",
+                ethFaq2A: "Staked ETH is locked up and cannot be immediately sold on the market. This reduces the circulating supply, which can contribute to price stability."
             }
         };
 
@@ -635,5 +803,3 @@
 </script>
 </body>
 </html>
-
-
