@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="stylesheet" href="/assets/site.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5223166964784846" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ST7JJ32CZE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-ST7JJ32CZE');
+    </script>
+    <title>공급량 계산기 사용법과 데이터 읽는 법 | CryptoFlow</title>
+    <meta name="description" content="기간을 지정해 BTC·ETH 공급 증가량을 구하는 방법, 데이터 출처와 업데이트 주기, 실전 활용 예시를 정리했습니다.">
+    <link rel="canonical" href="https://coinsupplycalc.com/guides/calculator-guide.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="CryptoFlow">
+    <meta property="og:url" content="https://coinsupplycalc.com/guides/calculator-guide.html">
+    <meta property="og:title" content="공급량 계산기 사용법과 데이터 읽는 법">
+    <meta property="og:description" content="기간을 지정해 BTC·ETH 공급 증가량을 구하는 방법, 데이터 출처와 업데이트 주기, 실전 활용 예시를 정리했습니다.">
+    <meta property="og:image" content="https://coinsupplycalc.com/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "공급량 계산기 사용법과 데이터 읽는 법", "description": "기간을 지정해 BTC·ETH 공급 증가량을 구하는 방법, 데이터 출처와 업데이트 주기, 실전 활용 예시를 정리했습니다.", "datePublished": "2026-10-21", "dateModified": "2026-10-21", "inLanguage": "ko", "mainEntityOfPage": "https://coinsupplycalc.com/guides/calculator-guide.html", "author": {"@type": "Organization", "name": "CryptoFlow"}, "publisher": {"@type": "Organization", "name": "CryptoFlow", "logo": {"@type": "ImageObject", "url": "https://coinsupplycalc.com/favicon.png"}}, "image": "https://coinsupplycalc.com/og-image.png"}</script>
+</head>
+<body>
+<header class="site-nav">
+  <div class="inner">
+    <a class="brand" href="/"><img src="/favicon.png" alt="" width="24" height="24">CryptoFlow</a>
+    <nav aria-label="주요 메뉴"><ul><li><a href="/">계산기</a></li><li><a href="/guides/" aria-current="page">가이드</a></li><li><a href="/about.html">소개</a></li><li><a href="/contact.html">문의</a></li></ul></nav>
+  </div>
+</header>
+<main class="page">
+<div class="breadcrumb"><a href="/">홈</a> › <a href="/guides/">가이드</a> › 공급량 계산기 사용법과 데이터 읽는 법</div>
+<h1>공급량 계산기 사용법과 데이터 읽는 법</h1>
+<div class="post-meta">CryptoFlow 편집 · 최종 수정 2026-10-21 · 데이터 기준 2026년 10월 19일</div>
+
+<p class="lead">CryptoFlow 공급량 계산기는 “특정 기간 동안 비트코인(BTC)과 이더리움(ETH)이 실제로 얼마나 늘었는가”를 하루 단위로 보여주는 도구입니다. 이 글에서는 계산기 사용법과 함께, 결과 숫자를 어떻게 해석하면 좋은지 정리했습니다.</p>
+
+<h2>1. 기본 사용법</h2>
+<ol>
+  <li>메인 화면 상단에서 <strong>BTC</strong> 또는 <strong>ETH</strong> 버튼을 눌러 자산을 고릅니다.</li>
+  <li><strong>시작일</strong>과 <strong>종료일</strong>을 선택합니다. 비트코인은 2009년 1월 3일, 이더리움은 2015년 7월 30일부터 조회할 수 있습니다.</li>
+  <li><strong>계산하기</strong>를 누르면 두 날짜 사이의 공급 증가량(개수)과 증가율(%)이 표시되고, 아래에 누적 증가 차트가 그려집니다.</li>
+</ol>
+<p>종료일은 오늘 기준 이틀 전까지 선택할 수 있습니다. 데이터 제공처가 하루치 집계를 확정하는 데 시간이 걸리기 때문입니다.</p>
+
+<h2>2. 결과 화면의 두 숫자</h2>
+<h3>증가된 양</h3>
+<p>종료일 공급량에서 시작일 공급량을 뺀 값입니다. 비트코인은 소각이 없으므로 항상 0 이상이지만, 이더리움은 소각량이 발행량보다 많았던 기간에는 <strong>음수</strong>가 나올 수 있습니다. 음수는 “그 기간 동안 이더리움 총량이 줄었다”는 뜻입니다.</p>
+<h3>기간 내 증가율</h3>
+<div class="formula">증가율(%) = (종료일 공급량 − 시작일 공급량) ÷ 시작일 공급량 × 100</div>
+<p>기간이 1년이 아니라면 이 값은 “연간 인플레이션율”이 아닙니다. 기간 길이를 연 단위로 환산하는 방법은 <a href="/guides/crypto-supply-terms.html">공급량 용어와 인플레이션율 계산법</a>에서 설명합니다.</p>
+
+<h2>3. 데이터는 어디서 오나요?</h2>
+<p>공급량 수치는 블록체인 데이터 분석 기업 Coin Metrics가 공개하는 Community API의 일별 공급량(SplyCur) 지표를 사용합니다. 사이트 저장소에 있는 Python 스크립트가 <strong>매일 한국 시간 오후 6시 10분</strong>에 GitHub Actions로 자동 실행되어 최신 데이터를 받아오고, 사이트 파일을 갱신합니다. 사람이 손으로 숫자를 옮기지 않기 때문에 입력 실수가 끼어들 여지가 적습니다.</p>
+<p>화면 상단의 실시간 가격은 별도의 시세 API(CryptoCompare)에서 30초마다 불러오며, 공급량 계산과는 관계가 없습니다.</p>
+
+<h2>4. 이렇게 활용해 보세요</h2>
+<h3>반감기 효과 확인하기</h3>
+<p>비트코인에서 2024년 4월 20일 전후로 같은 길이의 기간을 각각 계산해 보세요. 반감기 이후 기간의 증가량이 정확히 절반 수준으로 줄어든 것을 확인할 수 있습니다. 반감기의 원리는 <a href="/guides/bitcoin-halving.html">비트코인 반감기 완벽 정리</a>에 있습니다.</p>
+<h3>이더리움이 실제로 줄어든 구간 찾기</h3>
+<p>이더리움에서 시작일을 2022년 9월 15일(더 머지), 종료일을 2024년 3월 13일(덴쿤 업그레이드)로 넣어 보세요. 이 기간에는 약 43만 5천 ETH가 <strong>감소</strong>한 것으로 나옵니다. 같은 계산을 2024년 3월 13일부터 최근까지 해 보면 반대로 증가한 결과가 나오는데, 그 이유는 <a href="/guides/ethereum-supply-after-dencun.html">덴쿤 이후 공급량 분석</a>에서 다룹니다.</p>
+<h3>두 자산의 1년 증가율 비교</h3>
+<p>BTC와 ETH 모두 최근 1년(2025-10-19 ~ 2026-10-19)을 넣어 보면, 둘 다 약 0.82%로 거의 같은 증가율이 나옵니다. 구조는 완전히 다른데 결과가 비슷해진 이유는 <a href="/guides/btc-vs-eth-supply.html">BTC vs ETH 공급 구조 비교</a>를 참고하세요.</p>
+
+<h2>5. 자주 생기는 문제</h2>
+<ul>
+  <li><strong>“선택하신 날짜에 대한 데이터가 없습니다”</strong>: 조회 가능 범위(시작일 이후, 오늘 −2일 이전)를 벗어난 날짜입니다.</li>
+  <li><strong>결과가 다른 사이트와 조금 다름</strong>: 공급량 집계 기준(블록 시각, 시간대, 분실 코인 포함 여부)이 데이터 제공처마다 달라 소수점 이하 차이가 생길 수 있습니다.</li>
+  <li><strong>차트가 보이지 않음</strong>: 광고 차단 확장 프로그램이 차트 라이브러리를 막는 경우가 있습니다. 새로고침하거나 확장 프로그램 설정을 확인해 주세요.</li>
+</ul>
+<div class="cta"><a href="/">공급량 계산기로 직접 확인하기</a><a class="secondary" href="/guides/">다른 가이드 보기</a></div><section class="related"><h2>함께 읽으면 좋은 글</h2><ul class="card-list"><li><a href="/guides/crypto-supply-terms.html"><span class="tag ">기초</span><span class="title">총공급량·유통량·최대공급량 차이와 인플레이션율 계산법</span><span class="desc">헷갈리는 공급량 용어를 정리하고, 연간 공급 인플레이션율을 직접 계산하는 공식을 예시와 함께 설명합니다.</span></a></li><li><a href="/guides/bitcoin-halving.html"><span class="tag btc">BTC</span><span class="title">비트코인 반감기 완벽 정리: 원리, 역대 일정, 다음 반감기</span><span class="desc">21만 블록마다 보상이 절반이 되는 반감기의 원리와 역대 반감기 당시 실제 공급량, 2028년 다섯 번째 반감기를 다룹니다.</span></a></li><li><a href="/guides/ethereum-supply-after-dencun.html"><span class="tag eth">ETH</span><span class="title">덴쿤 업그레이드 이후 이더리움 공급량은 왜 다시 늘었나</span><span class="desc">2024년 덴쿤(EIP-4844) 이후 소각량이 줄어든 이유와 공급량이 다시 증가세로 돌아선 흐름을 데이터로 살펴봅니다.</span></a></li></ul></section><p class="disclaimer">이 글은 암호화폐의 구조를 설명하기 위한 정보 제공용 콘텐츠이며, 특정 자산의 매수·매도를 권유하지 않습니다. 본문의 공급량 수치는 Coin Metrics Community API 데이터(2026년 10월 19일 기준)를 바탕으로 계산했으며, 데이터 제공처 사정에 따라 일부 차이가 있을 수 있습니다.</p>
+</main>
+<footer class="site-footer">
+  <nav aria-label="사이트 정보">
+    <a href="/about.html">소개</a><a href="/guides/">가이드</a><a href="/privacy.html">개인정보처리방침</a><a href="/terms.html">이용약관·면책조항</a><a href="/contact.html">문의</a><a href="/release-notes.html">릴리즈 노트</a>
+  </nav>
+  <p>본 사이트의 모든 정보는 투자 권유가 아닌 정보 제공 목적이며, 투자 판단과 그 결과에 대한 책임은 이용자 본인에게 있습니다.</p>
+  <p>공급량 데이터: Coin Metrics Community API · © 2026 CryptoFlow</p>
+</footer>
+</body>
+</html>

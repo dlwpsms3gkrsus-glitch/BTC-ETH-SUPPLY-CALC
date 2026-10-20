@@ -10,23 +10,24 @@
     <meta name="google-site-verification" content="VOeFnUDVB2h8q8K7RXfjdbwOcDtqARg3g4BrW06Ei9w" />
 
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://your-website-url.com/">
-    <meta property="og:title" content="비트코인·이더리움 공급량 맟 발행량 계산기 및 차트">
+    <link rel="canonical" href="https://coinsupplycalc.com/">
+    <meta property="og:site_name" content="CryptoFlow">
+    <meta property="og:url" content="https://coinsupplycalc.com/">
+    <meta property="og:title" content="비트코인·이더리움 공급량 및 발행량 계산기 및 차트">
     <meta property="og:description" content="기간별 비트코인(BTC)과 이더리움(ETH)의 공급량 누적 증가 추이를 실시간 가격과 함께 차트로 확인하세요.">
-    <meta property="og:image" content="https://your-website-url.com/og-image.png">
+    <meta property="og:image" content="https://coinsupplycalc.com/og-image.png">
 
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://your-website-url.com/">
-    <meta property="twitter:title" content="BTC/ETH 공급량 계산기 및 차트 | CryptoFlow Tracker">
-    <meta property="twitter:description" content="기간별 비트코인(BTC)과 이더리움(ETH)의 공급량 누적 증가 추이를 실시간 가격과 함께 차트로 확인하세요.">
-    <meta property="twitter:image" content="https://your-website-url.com/twitter-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="BTC/ETH 공급량 계산기 및 차트 | CryptoFlow Tracker">
+    <meta name="twitter:description" content="기간별 비트코인(BTC)과 이더리움(ETH)의 공급량 누적 증가 추이를 실시간 가격과 함께 차트로 확인하세요.">
+    <meta name="twitter:image" content="https://coinsupplycalc.com/og-image.png">
 
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="apple-touch-icon" href="favicon.png">
     
     <style>
         body { font-family: 'Noto Sans KR', sans-serif; margin: 0; background-color: #121826; color: #E5ECF6; display: flex; flex-direction: column; min-height: 100vh; }
-        .container { min-width:830px; max-width: 1800px; margin: 0 auto; padding: 20px; flex: 1; }
+        .container { width: 100%; max-width: 1800px; margin: 0 auto; padding: 20px; flex: 1; box-sizing: border-box; }
         a { color: #FFB800; text-decoration: none; }
         header { display: flex; justify-content: space-between; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid #2a3f5f; flex-wrap: wrap; }
         .logo-section { display: flex; flex-direction: column; }
@@ -52,7 +53,7 @@
         .calculator-header { border-bottom: 1px solid #2a3f5f; padding-bottom: 15px; margin-bottom: 20px; }
         .calculator-header h2 { margin: 0; font-weight: 500;}
         .calculator-subtitle { margin-top: 5px; margin-bottom: 0; font-size: 14px; color: #8c9db3; font-weight: 400; }
-        .calculator { width: 100%; max-width: 700px; margin: 20px auto; padding: 30px; background-color: #121826; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
+        .calculator { width: 100%; box-sizing: border-box; max-width: 700px; margin: 20px auto; padding: 30px; background-color: #121826; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
         .input-group { display: flex; justify-content: space-between; margin-bottom: 20px; gap: 15px; }
         .input-field { display: flex; flex-direction: column; width: 48%; }
         .input-field label { margin-bottom: 8px; font-weight: bold; color: #aebacd; }
@@ -211,7 +212,37 @@
         font-size: 0.95em;
     }
 
+    /* --- 상단 메뉴 / 가이드 링크 / 푸터 링크 (v1.4.0) --- */
+    .top-nav { display: flex; justify-content: flex-end; gap: 4px; flex-wrap: wrap; margin-bottom: 8px; }
+    .top-nav a { color: #cdd7e5; padding: 6px 12px; border-radius: 6px; font-size: 14px; }
+    .top-nav a:hover { background-color: #232e42; color: #FFB800; }
+    .guide-links { margin-top: 30px; padding: 20px; background-color: #1A2233; border: 1px solid #2a3f5f; border-radius: 10px; }
+    .guide-links h3 { margin: 0 0 10px; font-size: 1.1em; color: #E5ECF6; }
+    .guide-links ul { margin: 0; padding-left: 20px; line-height: 1.9; }
+    .guide-links a { color: #FFB800; }
+    .guide-links a:hover { text-decoration: underline; }
+    .footer-links { display: flex; justify-content: center; gap: 6px 16px; flex-wrap: wrap; }
+    .footer-links a { font-weight: normal; text-decoration: none; color: #cdd7e5; }
+    .footer-links a:hover { color: #FFB800; }
+    .disclaimer-note { font-size: 12px; color: #8c9db3; }
+
+    /* --- 모바일 대응 --- */
+    @media (max-width: 760px) {
+        .container { padding: 12px; }
+        header { flex-direction: column; gap: 12px; }
+        .header-metrics { width: 100%; justify-content: space-between; flex-wrap: wrap; }
+        .live-crypto-price .price { font-size: 22px; }
+        .calculator-section { padding: 16px 8px; }
+        .calculator { padding: 18px; }
+        .input-group { flex-direction: column; }
+        .input-field { width: 100%; }
+        .site-tab { padding: 10px 14px; font-size: 14px; }
+        .result-item { flex-direction: column; align-items: flex-start; gap: 4px; }
+        .top-nav { justify-content: center; }
+    }
+
     </style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5223166964784846" crossorigin="anonymous"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ST7JJ32CZE"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -224,9 +255,15 @@
 </head>
 <body>
 <div class="container">
+<nav class="top-nav" aria-label="주요 메뉴">
+    <a href="/" data-lang-key="navCalc">계산기</a>
+    <a href="/guides/" data-lang-key="navGuide">가이드</a>
+    <a href="/about.html" data-lang-key="navAbout">소개</a>
+    <a href="/contact.html" data-lang-key="navContact">문의</a>
+</nav>
 <header>
 <div class="logo-section">
-    <h1 class="logo"><a href="#" data-lang-key="headerTitle">비트코인·이더리움 공급량 및 발행량 계산기</a></h1>
+    <h1 class="logo"><a href="/" data-lang-key="headerTitle">비트코인·이더리움 공급량 및 발행량 계산기</a></h1>
     <div class="coin-switcher">
     <button class="active" id="btn-btc">
         <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 640" fill="currentColor">
@@ -298,7 +335,7 @@
 
             <div class="info-section">
                 <h3 data-lang-key="btcInfoTitle1">비트코인 발행 구조</h3>
-                <p data-lang-key="btcInfoDesc1">2009년 사토시 나카모토가 개발한 비트코인 시스템은 초창기에 블록당 50개의 비트코인이 보상으로 주어졌습니다. 21,000,000개의 블록이 생성될 때마다 채굴 보상이 절반으로 줄어드는 '반감기'가 발생하며, 블록은 약 10분마다 하나씩 생성되도록 난이도가 조절됩니다. 이 때문에 반감기는 약 4년 주기로 발생합니다. 2024년 4월 네 번째 반감기를 지나 현재는 블록당 3.125개가 채굴되고 있습니다.</p>
+                <p data-lang-key="btcInfoDesc1">2009년 사토시 나카모토가 개발한 비트코인 시스템은 초창기에 블록당 50개의 비트코인이 보상으로 주어졌습니다. 210,000개의 블록이 생성될 때마다 채굴 보상이 절반으로 줄어드는 '반감기'가 발생하며, 블록은 약 10분마다 하나씩 생성되도록 난이도가 조절됩니다. 이 때문에 반감기는 약 4년 주기로 발생합니다. 2024년 4월 네 번째 반감기를 지나 현재는 블록당 3.125개가 채굴되고 있습니다.</p>
                 <h4 data-lang-key="btcInfoTitle2">과거 비트코인 반감기 발생 일자</h4>
                 <ul>
                     <li data-lang-key="btcHalving1"><b>첫 번째 반감기:</b> 2012년 11월 28일 (블록 보상: 50 BTC → 25 BTC)</li>
@@ -337,6 +374,15 @@
                         가격은 거시 경제 상황, 규제, 기술적 발전 등 다양한 요소의 영향을 받습니다.
                     </div>
                 </details>
+            </div>
+            <div class="guide-links">
+                <h3 data-lang-key="guideBoxTitle">📚 더 알아보기</h3>
+                <ul>
+                    <li><a href="/guides/bitcoin-halving.html">비트코인 반감기 완벽 정리: 원리, 역대 일정, 다음 반감기</a></li>
+                    <li><a href="/guides/bitcoin-21-million.html">비트코인은 왜 2,100만 개가 한계일까?</a></li>
+                    <li><a href="/guides/calculator-guide.html">공급량 계산기 사용법과 데이터 읽는 법</a></li>
+                    <li><a href="/guides/btc-vs-eth-supply.html">비트코인 vs 이더리움 공급 구조 비교</a></li>
+                </ul>
             </div>
         </div>
 
@@ -421,11 +467,28 @@
                     </div>
                 </details>
             </div>
+            <div class="guide-links">
+                <h3 data-lang-key="guideBoxTitle">📚 더 알아보기</h3>
+                <ul>
+                    <li><a href="/guides/ethereum-eip1559-burn.html">이더리움 소각(EIP-1559)은 어떻게 공급량을 줄일까</a></li>
+                    <li><a href="/guides/ethereum-merge-issuance.html">더 머지 전후 이더리움 발행량 비교</a></li>
+                    <li><a href="/guides/ethereum-supply-after-dencun.html">덴쿤 업그레이드 이후 이더리움 공급량은 왜 다시 늘었나</a></li>
+                    <li><a href="/guides/calculator-guide.html">공급량 계산기 사용법과 데이터 읽는 법</a></li>
+                </ul>
+            </div>
         </div>
     </section>
 </main>
 <footer>
- <p data-lang-key="footerVersion">Website ver: 1.3.0 ver | <a href="release-notes.html">Release note 바로가기</a></p>
+ <nav class="footer-links" aria-label="사이트 정보">
+    <a href="/about.html" data-lang-key="navAbout">소개</a>
+    <a href="/guides/" data-lang-key="navGuide">가이드</a>
+    <a href="/privacy.html" data-lang-key="navPrivacy">개인정보처리방침</a>
+    <a href="/terms.html" data-lang-key="navTerms">이용약관·면책조항</a>
+    <a href="/contact.html" data-lang-key="navContact">문의</a>
+ </nav>
+ <p class="disclaimer-note" data-lang-key="footerDisclaimer">본 사이트의 정보는 투자 권유가 아닌 정보 제공 목적이며, 투자 판단과 그 결과에 대한 책임은 이용자 본인에게 있습니다. 공급량 데이터 출처: Coin Metrics Community API</p>
+ <p data-lang-key="footerVersion">웹사이트 버전: 1.4.0 ver | <a href="release-notes.html">릴리즈 노트 바로가기</a></p>
 <p>Created by: <a href="mailto:dlwpsms3gkrsus@gmail.com">dlwpsms3gkrsus@gmail.com</a></p>
 <p>naver blog: <a href="https://blog.naver.com/jsw3500">jsw3500@naver.com</a></p>
 </footer>
@@ -461,7 +524,7 @@
                 ethResultAmount: "📈 증가된 ETH의 양:",
                 ethResultRate: "📊 기간 내 증가율:",
                 btcInfoTitle1: "비트코인 발행 구조",
-                btcInfoDesc1: "2009년 사토시 나카모토가 개발한 비트코인 시스템은 초창기에 블록당 50개의 비트코인이 보상으로 주어졌습니다. 21,000,000개의 블록이 생성될 때마다 채굴 보상이 절반으로 줄어드는 '반감기'가 발생하며, 블록은 약 10분마다 하나씩 생성되도록 난이도가 조절됩니다. 이 때문에 반감기는 약 4년 주기로 발생합니다. 2024년 4월 네 번째 반감기를 지나 현재는 블록당 3.125개가 채굴되고 있습니다.",
+                btcInfoDesc1: "2009년 사토시 나카모토가 개발한 비트코인 시스템은 초창기에 블록당 50개의 비트코인이 보상으로 주어졌습니다. 210,000개의 블록이 생성될 때마다 채굴 보상이 절반으로 줄어드는 '반감기'가 발생하며, 블록은 약 10분마다 하나씩 생성되도록 난이도가 조절됩니다. 이 때문에 반감기는 약 4년 주기로 발생합니다. 2024년 4월 네 번째 반감기를 지나 현재는 블록당 3.125개가 채굴되고 있습니다.",
                 btcInfoTitle2: "과거 비트코인 반감기 발생 일자",
                 btcHalving1: "첫 번째 반감기: 2012년 11월 28일 (블록 보상: 50 BTC → 25 BTC)",
                 btcHalving2: "두 번째 반감기: 2016년 7월 9일 (블록 보상: 25 BTC → 12.5 BTC)",
@@ -479,7 +542,10 @@
                 ethFeeTitle2: "우선 수수료 (Priority Fee / Tip) 💰: 검증인에게 가는 보상",
                 ethFeeDesc3: "사용자가 자신의 거래를 더 빨리 처리해달라고 검증인(스테이킹한 사람)에게 주는 보상입니다. 이 보상은 선택 사항이며, 사용자가 직접 설정합니다. 네트워크가 붐빌 때 더 높은 팁을 제시하면 거래가 블록에 포함될 확률이 높아집니다. 거래가 빨리 체결될 수 있다는 의미입니다. 이 팁은 소각되지 않고, 해당 블록을 생성한 검증인에게 직접 보상으로 지급됩니다.",
                 ethFeeSummary: "사용자는 거래를 일으키며 기본 수수료 + 우선 수수료(팁)를 지불합니다. 이 중 기본 수수료는 네트워크에서 소각되어 이더리움의 총공급량을 줄이는 역할을 합니다. 우선 수수료(팁)는 블록을 생성한 검증인에게 직접적인 수익으로 돌아갑니다. 이와는 별개로, 이더리움 프로토콜 자체는 스테이킹에 참여한 모든 검증인에게 신규 이더리움(ETH)을 발행하여 보상으로 지급합니다.",
-                footerVersion: "웹사이트 버전: 1.3.0 ver | <a href='release-notes.html'>릴리즈 노트 바로가기</a>",
+                footerVersion: "웹사이트 버전: 1.4.0 ver | <a href='release-notes.html'>릴리즈 노트 바로가기</a>",
+                navCalc: "계산기", navGuide: "가이드", navAbout: "소개", navContact: "문의", navPrivacy: "개인정보처리방침", navTerms: "이용약관·면책조항",
+                guideBoxTitle: "📚 더 알아보기",
+                footerDisclaimer: "본 사이트의 정보는 투자 권유가 아닌 정보 제공 목적이며, 투자 판단과 그 결과에 대한 책임은 이용자 본인에게 있습니다. 공급량 데이터 출처: Coin Metrics Community API",
                 tabMain: "공급량 계산기",
                 tabSub: "현물 ETF 자금 흐름",
                 btcSeoTitle: "비트코인의 희소성과 가치 저장 수단",
@@ -516,7 +582,7 @@
                 ethResultAmount: "📈 Amount of ETH Increased:",
                 ethResultRate: "📊 Increase Rate for Period:",
                 btcInfoTitle1: "Bitcoin Issuance Structure",
-                btcInfoDesc1: "Developed by Satoshi Nakamoto in 2009, the Bitcoin system initially rewarded 50 BTC per block. A 'halving' event occurs every 21,000,000 blocks, reducing the mining reward by half. The network difficulty is adjusted to target a 10-minute block time, which makes the halving cycle approximately four years long. After the fourth halving in April 2024, the current block reward is 3.125 BTC.",
+                btcInfoDesc1: "Developed by Satoshi Nakamoto in 2009, the Bitcoin system initially rewarded 50 BTC per block. A 'halving' event occurs every 210,000 blocks, reducing the mining reward by half. The network difficulty is adjusted to target a 10-minute block time, which makes the halving cycle approximately four years long. After the fourth halving in April 2024, the current block reward is 3.125 BTC.",
                 btcInfoTitle2: "Past Bitcoin Halving Dates",
                 btcHalving1: "First Halving: Nov 28, 2012 (Block Reward: 50 BTC → 25 BTC)",
                 btcHalving2: "Second Halving: Jul 9, 2016 (Block Reward: 25 BTC → 12.5 BTC)",
@@ -534,7 +600,10 @@
                 ethFeeTitle2: "Priority Fee / Tip 💰: The Validator's Reward",
                 ethFeeDesc3: "This is a tip a user can give to a validator to have their transaction processed faster. This tip is optional and set by the user. Offering a higher tip during busy times increases the probability of the transaction being included in the next block. This tip is not burned and is paid directly to the validator who creates the block.",
                 ethFeeSummary: "Users pay a total of Base Fee + Priority Fee (Tip). The Base Fee is burned, reducing the total supply of Ethereum. The Priority Fee (Tip) goes directly to the validator as profit. Separately, the Ethereum protocol itself issues new ETH as a reward to all validators participating in staking.",
-                footerVersion: "Website ver: 1.3.0 ver | <a href='release-notes.html'>Go to Release Notes</a>",
+                footerVersion: "Website ver: 1.4.0 ver | <a href='release-notes.html'>Go to Release Notes</a>",
+                navCalc: "Calculator", navGuide: "Guides", navAbout: "About", navContact: "Contact", navPrivacy: "Privacy Policy", navTerms: "Terms & Disclaimer",
+                guideBoxTitle: "📚 Learn more (Korean)",
+                footerDisclaimer: "Information on this site is for informational purposes only and is not investment advice. Supply data: Coin Metrics Community API",
                 tabMain: "Supply Calculator",
                 tabSub: "SPOT ETF Fund Flow",
                 btcSeoTitle: "Bitcoin's Scarcity and Store of Value",

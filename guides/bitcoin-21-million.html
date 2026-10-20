@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="stylesheet" href="/assets/site.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5223166964784846" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ST7JJ32CZE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-ST7JJ32CZE');
+    </script>
+    <title>비트코인은 왜 2,100만 개가 한계일까? 최대 공급량의 수학 | CryptoFlow</title>
+    <meta name="description" content="등비급수로 계산되는 2,100만 개 상한, 실제 최대치가 20,999,999.9769인 이유, 마지막 비트코인이 채굴되는 시점을 설명합니다.">
+    <link rel="canonical" href="https://coinsupplycalc.com/guides/bitcoin-21-million.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="CryptoFlow">
+    <meta property="og:url" content="https://coinsupplycalc.com/guides/bitcoin-21-million.html">
+    <meta property="og:title" content="비트코인은 왜 2,100만 개가 한계일까? 최대 공급량의 수학">
+    <meta property="og:description" content="등비급수로 계산되는 2,100만 개 상한, 실제 최대치가 20,999,999.9769인 이유, 마지막 비트코인이 채굴되는 시점을 설명합니다.">
+    <meta property="og:image" content="https://coinsupplycalc.com/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "비트코인은 왜 2,100만 개가 한계일까? 최대 공급량의 수학", "description": "등비급수로 계산되는 2,100만 개 상한, 실제 최대치가 20,999,999.9769인 이유, 마지막 비트코인이 채굴되는 시점을 설명합니다.", "datePublished": "2026-10-21", "dateModified": "2026-10-21", "inLanguage": "ko", "mainEntityOfPage": "https://coinsupplycalc.com/guides/bitcoin-21-million.html", "author": {"@type": "Organization", "name": "CryptoFlow"}, "publisher": {"@type": "Organization", "name": "CryptoFlow", "logo": {"@type": "ImageObject", "url": "https://coinsupplycalc.com/favicon.png"}}, "image": "https://coinsupplycalc.com/og-image.png"}</script>
+</head>
+<body>
+<header class="site-nav">
+  <div class="inner">
+    <a class="brand" href="/"><img src="/favicon.png" alt="" width="24" height="24">CryptoFlow</a>
+    <nav aria-label="주요 메뉴"><ul><li><a href="/">계산기</a></li><li><a href="/guides/" aria-current="page">가이드</a></li><li><a href="/about.html">소개</a></li><li><a href="/contact.html">문의</a></li></ul></nav>
+  </div>
+</header>
+<main class="page">
+<div class="breadcrumb"><a href="/">홈</a> › <a href="/guides/">가이드</a> › 비트코인은 왜 2,100만 개가 한계일까? 최대 공급량의 수학</div>
+<h1>비트코인은 왜 2,100만 개가 한계일까? 최대 공급량의 수학</h1>
+<div class="post-meta">CryptoFlow 편집 · 최종 수정 2026-10-21 · 데이터 기준 2026년 10월 19일</div>
+
+<p class="lead">“비트코인은 2,100만 개까지만 발행된다”는 말은 유명하지만, 그 숫자가 어디서 나왔는지는 잘 알려져 있지 않습니다. 사실 2,100만은 누가 정한 목표치라기보다 <strong>반감기 규칙을 끝까지 더한 결과</strong>입니다.</p>
+
+<h2>1. 2,100만은 등비급수의 합</h2>
+<p>각 반감기 구간(210,000블록)에서 발행되는 양은 210,000 × 블록 보상입니다. 보상이 50, 25, 12.5…로 절반씩 줄어들므로 전체 합은 다음과 같습니다.</p>
+<div class="formula">총발행량 = 210,000 × (50 + 25 + 12.5 + …) = 210,000 × 100 = 21,000,000 BTC</div>
+<p>50부터 시작해 절반씩 줄어드는 수열을 무한히 더하면 100에 수렴합니다. 여기에 210,000을 곱하면 정확히 2,100만이 나옵니다.</p>
+
+<h2>2. 실제 최대치는 2,100만보다 조금 적다</h2>
+<p>비트코인의 최소 단위는 <strong>1사토시 = 0.00000001 BTC</strong>입니다. 블록 보상을 절반으로 나누다 보면 사토시 아래 자릿수가 생기는데, 프로토콜은 이를 버림 처리합니다. 이 버림이 누적되어 이론상 최대 공급량은 약 <strong>20,999,999.9769 BTC</strong>가 됩니다.</p>
+<p>또 2009년 첫 블록(제네시스 블록)의 50 BTC 보상은 구조상 사용할 수 없고, 일부 채굴자가 실수로 보상을 덜 받아간 블록도 있어 실제로 존재할 수 있는 양은 이보다 더 적습니다.</p>
+
+<h2>3. 지금까지 얼마나 채굴됐나</h2>
+<p>CryptoFlow 데이터 기준 2026년 10월 19일 총공급량은 약 <strong>2,010만 BTC</strong>로, 최대치의 약 95.7%가 이미 발행되었습니다. 남은 약 90만 BTC는 앞으로 100년 넘게 점점 더 느린 속도로 발행됩니다.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>시점</th><th class="num">누적 발행 비율</th></tr></thead>
+<tbody>
+<tr><td>1차 반감기 (2012)</td><td class="num">50%</td></tr>
+<tr><td>2차 반감기 (2016)</td><td class="num">75%</td></tr>
+<tr><td>3차 반감기 (2020)</td><td class="num">87.5%</td></tr>
+<tr><td>4차 반감기 (2024)</td><td class="num">93.75%</td></tr>
+<tr><td>2026년 10월 19일</td><td class="num">약 95.7%</td></tr>
+<tr><td>5차 반감기 (2028 예상)</td><td class="num">96.875%</td></tr>
+</tbody>
+</table></div>
+
+<h2>4. 마지막 비트코인은 언제 채굴될까</h2>
+<p>블록 보상이 1사토시 미만이 되는 시점은 33번째 반감기 구간, 블록 높이 약 6,930,000입니다. 블록이 평균 10분마다 생성된다고 가정하면 <strong>2140년 무렵</strong>입니다. 이후 채굴자는 신규 발행 없이 거래 수수료만으로 보상을 받습니다.</p>
+
+<h2>5. 2,100만 한도는 바뀔 수 있을까?</h2>
+<p>기술적으로는 코드를 바꾸면 가능하지만, 그러려면 전 세계 노드 운영자 대다수가 변경된 소프트웨어를 받아들여야 합니다. 발행 한도는 비트코인의 가치 제안 그 자체이기 때문에, 이를 늘리는 변경은 사실상 지지를 얻기 어렵다는 것이 일반적인 평가입니다. 반대로 이더리움은 처음부터 최대 공급량을 정하지 않고 발행·소각 균형으로 공급을 조절하는 길을 택했습니다. 두 방식의 차이는 <a href="/guides/btc-vs-eth-supply.html">BTC vs ETH 비교</a>에서 볼 수 있습니다.</p>
+<div class="cta"><a href="/">공급량 계산기로 직접 확인하기</a><a class="secondary" href="/guides/">다른 가이드 보기</a></div><section class="related"><h2>함께 읽으면 좋은 글</h2><ul class="card-list"><li><a href="/guides/bitcoin-halving.html"><span class="tag btc">BTC</span><span class="title">비트코인 반감기 완벽 정리: 원리, 역대 일정, 다음 반감기</span><span class="desc">21만 블록마다 보상이 절반이 되는 반감기의 원리와 역대 반감기 당시 실제 공급량, 2028년 다섯 번째 반감기를 다룹니다.</span></a></li><li><a href="/guides/crypto-supply-terms.html"><span class="tag ">기초</span><span class="title">총공급량·유통량·최대공급량 차이와 인플레이션율 계산법</span><span class="desc">헷갈리는 공급량 용어를 정리하고, 연간 공급 인플레이션율을 직접 계산하는 공식을 예시와 함께 설명합니다.</span></a></li><li><a href="/guides/btc-vs-eth-supply.html"><span class="tag ">비교</span><span class="title">비트코인 vs 이더리움 공급 구조 한눈에 비교</span><span class="desc">최대 공급량, 발행 방식, 소각 여부, 최근 1년 공급 증가율까지 두 자산의 공급 정책을 표로 비교했습니다.</span></a></li></ul></section><p class="disclaimer">이 글은 암호화폐의 구조를 설명하기 위한 정보 제공용 콘텐츠이며, 특정 자산의 매수·매도를 권유하지 않습니다. 본문의 공급량 수치는 Coin Metrics Community API 데이터(2026년 10월 19일 기준)를 바탕으로 계산했으며, 데이터 제공처 사정에 따라 일부 차이가 있을 수 있습니다.</p>
+</main>
+<footer class="site-footer">
+  <nav aria-label="사이트 정보">
+    <a href="/about.html">소개</a><a href="/guides/">가이드</a><a href="/privacy.html">개인정보처리방침</a><a href="/terms.html">이용약관·면책조항</a><a href="/contact.html">문의</a><a href="/release-notes.html">릴리즈 노트</a>
+  </nav>
+  <p>본 사이트의 모든 정보는 투자 권유가 아닌 정보 제공 목적이며, 투자 판단과 그 결과에 대한 책임은 이용자 본인에게 있습니다.</p>
+  <p>공급량 데이터: Coin Metrics Community API · © 2026 CryptoFlow</p>
+</footer>
+</body>
+</html>
