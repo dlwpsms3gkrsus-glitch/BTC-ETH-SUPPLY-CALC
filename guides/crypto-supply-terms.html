@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="stylesheet" href="/assets/site.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5223166964784846" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ST7JJ32CZE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-ST7JJ32CZE');
+    </script>
+    <title>총공급량·유통량·최대공급량 차이와 인플레이션율 계산법 | CryptoFlow</title>
+    <meta name="description" content="헷갈리는 공급량 용어를 정리하고, 연간 공급 인플레이션율을 직접 계산하는 공식을 예시와 함께 설명합니다.">
+    <link rel="canonical" href="https://coinsupplycalc.com/guides/crypto-supply-terms.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="CryptoFlow">
+    <meta property="og:url" content="https://coinsupplycalc.com/guides/crypto-supply-terms.html">
+    <meta property="og:title" content="총공급량·유통량·최대공급량 차이와 인플레이션율 계산법">
+    <meta property="og:description" content="헷갈리는 공급량 용어를 정리하고, 연간 공급 인플레이션율을 직접 계산하는 공식을 예시와 함께 설명합니다.">
+    <meta property="og:image" content="https://coinsupplycalc.com/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "총공급량·유통량·최대공급량 차이와 인플레이션율 계산법", "description": "헷갈리는 공급량 용어를 정리하고, 연간 공급 인플레이션율을 직접 계산하는 공식을 예시와 함께 설명합니다.", "datePublished": "2026-10-21", "dateModified": "2026-10-21", "inLanguage": "ko", "mainEntityOfPage": "https://coinsupplycalc.com/guides/crypto-supply-terms.html", "author": {"@type": "Organization", "name": "CryptoFlow"}, "publisher": {"@type": "Organization", "name": "CryptoFlow", "logo": {"@type": "ImageObject", "url": "https://coinsupplycalc.com/favicon.png"}}, "image": "https://coinsupplycalc.com/og-image.png"}</script>
+</head>
+<body>
+<header class="site-nav">
+  <div class="inner">
+    <a class="brand" href="/"><img src="/favicon.png" alt="" width="24" height="24">CryptoFlow</a>
+    <nav aria-label="주요 메뉴"><ul><li><a href="/">계산기</a></li><li><a href="/guides/" aria-current="page">가이드</a></li><li><a href="/about.html">소개</a></li><li><a href="/contact.html">문의</a></li></ul></nav>
+  </div>
+</header>
+<main class="page">
+<div class="breadcrumb"><a href="/">홈</a> › <a href="/guides/">가이드</a> › 총공급량·유통량·최대공급량 차이와 인플레이션율 계산법</div>
+<h1>총공급량·유통량·최대공급량 차이와 인플레이션율 계산법</h1>
+<div class="post-meta">CryptoFlow 편집 · 최종 수정 2026-10-21 · 데이터 기준 2026년 10월 19일</div>
+
+<p class="lead">암호화폐 시세 사이트를 보면 총공급량, 유통량, 최대공급량 같은 숫자가 나란히 적혀 있습니다. 비슷해 보이지만 뜻이 다르고, 어떤 숫자를 보느냐에 따라 해석도 달라집니다. 이 글에서 용어를 정리하고 공급 인플레이션율을 직접 계산하는 방법까지 다룹니다.</p>
+
+<h2>1. 공급량 용어 정리</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>용어</th><th>뜻</th><th>비트코인 예시</th></tr></thead>
+<tbody>
+<tr><td><strong>총공급량</strong> (Total / Current Supply)</td><td>지금까지 발행된 전체 수량에서 소각된 양을 뺀 값</td><td>약 2,010만 BTC</td></tr>
+<tr><td><strong>유통공급량</strong> (Circulating Supply)</td><td>시장에서 거래될 수 있는 물량. 재단 보유분·잠금 물량 등을 뺀 값</td><td>총공급량과 거의 같음</td></tr>
+<tr><td><strong>최대공급량</strong> (Max Supply)</td><td>프로토콜상 영원히 넘을 수 없는 상한</td><td>2,100만 BTC</td></tr>
+<tr><td><strong>발행량</strong> (Issuance)</td><td>일정 기간 새로 만들어진 양</td><td>하루 약 450 BTC</td></tr>
+<tr><td><strong>소각량</strong> (Burn)</td><td>영구히 사용할 수 없게 제거된 양</td><td>프로토콜 차원 소각 없음</td></tr>
+</tbody>
+<caption>비트코인 수치는 Coin Metrics 데이터 2026년 10월 19일 기준</caption>
+</table></div>
+<p>CryptoFlow 계산기가 보여주는 값은 <strong>총공급량</strong>의 변화입니다. 이더리움은 최대공급량이 정해져 있지 않으므로 그 칸은 비어 있는 것이 정상입니다.</p>
+
+<h3>분실된 코인은 어떻게 처리되나요?</h3>
+<p>개인키를 잃어버려 영원히 움직일 수 없는 비트코인도 총공급량에는 그대로 포함됩니다. 블록체인 입장에서는 “잃어버린 코인”과 “오래 보관 중인 코인”을 구분할 수 없기 때문입니다. 실제로 쓸 수 있는 물량은 공식 총공급량보다 적다고 보는 시각이 많습니다.</p>
+
+<h2>2. 순발행량 = 발행량 − 소각량</h2>
+<p>비트코인은 소각 장치가 없어서 발행량이 곧 공급 증가량입니다. 이더리움은 매 블록 새로 발행되는 양과 수수료로 소각되는 양이 동시에 존재하므로 <strong>순발행량</strong>을 봐야 합니다.</p>
+<div class="formula">순발행량 = 신규 발행량 − 소각량</div>
+<p>순발행량이 음수면 공급이 줄어드는 디플레이션, 양수면 늘어나는 인플레이션 상태입니다.</p>
+
+<h2>3. 연간 공급 인플레이션율 계산법</h2>
+<p>“올해 비트코인 공급이 몇 % 늘었나”를 말할 때 쓰는 값이 연간 공급 인플레이션율입니다. 기간이 정확히 1년이라면 계산기의 <strong>기간 내 증가율</strong>이 곧 연간 인플레이션율입니다. 기간이 1년이 아니라면 아래처럼 환산합니다.</p>
+<div class="formula">연환산 인플레이션율 = (1 + 기간 증가율) ^ (365 ÷ 기간 일수) − 1</div>
+<h3>예시: 90일 증가율을 연율로 바꾸기</h3>
+<p>어떤 90일 동안 공급이 0.20% 늘었다면, (1.002)^(365/90) − 1 ≈ 0.81%가 연환산 인플레이션율입니다. 짧은 기간일수록 일시적인 변동(예: 이더리움의 수수료 급증일)이 크게 반영되므로 가능하면 1년 단위로 보는 것이 좋습니다.</p>
+
+<h2>4. 스톡 투 플로우(Stock-to-Flow)</h2>
+<p>공급 인플레이션율의 역수 개념으로 “현재 재고를 연간 신규 공급으로 나눈 값”입니다. 값이 클수록 새로 풀리는 물량에 비해 기존 재고가 많아 희소하다는 뜻입니다.</p>
+<div class="formula">Stock-to-Flow = 현재 총공급량 ÷ 연간 신규 발행량</div>
+<p>비트코인의 경우 약 2,010만 ÷ 약 16.4만 ≈ 122 정도로 계산됩니다. 이 지표는 희소성을 비교하는 참고 자료일 뿐, 가격을 예측하는 모델로 쓰기에는 한계가 크다는 비판이 많다는 점도 함께 알아두세요.</p>
+<div class="cta"><a href="/">공급량 계산기로 직접 확인하기</a><a class="secondary" href="/guides/">다른 가이드 보기</a></div><section class="related"><h2>함께 읽으면 좋은 글</h2><ul class="card-list"><li><a href="/guides/calculator-guide.html"><span class="tag ">사용법</span><span class="title">공급량 계산기 사용법과 데이터 읽는 법</span><span class="desc">기간을 지정해 BTC·ETH 공급 증가량을 구하는 방법, 데이터 출처와 업데이트 주기, 실전 활용 예시를 정리했습니다.</span></a></li><li><a href="/guides/bitcoin-21-million.html"><span class="tag btc">BTC</span><span class="title">비트코인은 왜 2,100만 개가 한계일까? 최대 공급량의 수학</span><span class="desc">등비급수로 계산되는 2,100만 개 상한, 실제 최대치가 20,999,999.9769인 이유, 마지막 비트코인이 채굴되는 시점을 설명합니다.</span></a></li><li><a href="/guides/btc-vs-eth-supply.html"><span class="tag ">비교</span><span class="title">비트코인 vs 이더리움 공급 구조 한눈에 비교</span><span class="desc">최대 공급량, 발행 방식, 소각 여부, 최근 1년 공급 증가율까지 두 자산의 공급 정책을 표로 비교했습니다.</span></a></li></ul></section><p class="disclaimer">이 글은 암호화폐의 구조를 설명하기 위한 정보 제공용 콘텐츠이며, 특정 자산의 매수·매도를 권유하지 않습니다. 본문의 공급량 수치는 Coin Metrics Community API 데이터(2026년 10월 19일 기준)를 바탕으로 계산했으며, 데이터 제공처 사정에 따라 일부 차이가 있을 수 있습니다.</p>
+</main>
+<footer class="site-footer">
+  <nav aria-label="사이트 정보">
+    <a href="/about.html">소개</a><a href="/guides/">가이드</a><a href="/privacy.html">개인정보처리방침</a><a href="/terms.html">이용약관·면책조항</a><a href="/contact.html">문의</a><a href="/release-notes.html">릴리즈 노트</a>
+  </nav>
+  <p>본 사이트의 모든 정보는 투자 권유가 아닌 정보 제공 목적이며, 투자 판단과 그 결과에 대한 책임은 이용자 본인에게 있습니다.</p>
+  <p>공급량 데이터: Coin Metrics Community API · © 2026 CryptoFlow</p>
+</footer>
+</body>
+</html>

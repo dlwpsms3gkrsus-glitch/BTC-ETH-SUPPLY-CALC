@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="stylesheet" href="/assets/site.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5223166964784846" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ST7JJ32CZE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-ST7JJ32CZE');
+    </script>
+    <title>이더리움 소각(EIP-1559)은 어떻게 공급량을 줄일까 | CryptoFlow</title>
+    <meta name="description" content="기본 수수료가 소각되는 원리, 블록마다 최대 12.5%씩 움직이는 가스비 알고리즘, 소각이 공급에 미치는 영향을 정리했습니다.">
+    <link rel="canonical" href="https://coinsupplycalc.com/guides/ethereum-eip1559-burn.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="CryptoFlow">
+    <meta property="og:url" content="https://coinsupplycalc.com/guides/ethereum-eip1559-burn.html">
+    <meta property="og:title" content="이더리움 소각(EIP-1559)은 어떻게 공급량을 줄일까">
+    <meta property="og:description" content="기본 수수료가 소각되는 원리, 블록마다 최대 12.5%씩 움직이는 가스비 알고리즘, 소각이 공급에 미치는 영향을 정리했습니다.">
+    <meta property="og:image" content="https://coinsupplycalc.com/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "이더리움 소각(EIP-1559)은 어떻게 공급량을 줄일까", "description": "기본 수수료가 소각되는 원리, 블록마다 최대 12.5%씩 움직이는 가스비 알고리즘, 소각이 공급에 미치는 영향을 정리했습니다.", "datePublished": "2026-10-21", "dateModified": "2026-10-21", "inLanguage": "ko", "mainEntityOfPage": "https://coinsupplycalc.com/guides/ethereum-eip1559-burn.html", "author": {"@type": "Organization", "name": "CryptoFlow"}, "publisher": {"@type": "Organization", "name": "CryptoFlow", "logo": {"@type": "ImageObject", "url": "https://coinsupplycalc.com/favicon.png"}}, "image": "https://coinsupplycalc.com/og-image.png"}</script>
+</head>
+<body>
+<header class="site-nav">
+  <div class="inner">
+    <a class="brand" href="/"><img src="/favicon.png" alt="" width="24" height="24">CryptoFlow</a>
+    <nav aria-label="주요 메뉴"><ul><li><a href="/">계산기</a></li><li><a href="/guides/" aria-current="page">가이드</a></li><li><a href="/about.html">소개</a></li><li><a href="/contact.html">문의</a></li></ul></nav>
+  </div>
+</header>
+<main class="page">
+<div class="breadcrumb"><a href="/">홈</a> › <a href="/guides/">가이드</a> › 이더리움 소각(EIP-1559)은 어떻게 공급량을 줄일까</div>
+<h1>이더리움 소각(EIP-1559)은 어떻게 공급량을 줄일까</h1>
+<div class="post-meta">CryptoFlow 편집 · 최종 수정 2026-10-21 · 데이터 기준 2026년 10월 19일</div>
+
+<p class="lead">이더리움 공급량이 줄어들 수 있는 이유는 단 하나, 거래 수수료의 일부가 <strong>소각</strong>되기 때문입니다. 이 장치는 2021년 8월 5일 런던 하드포크에 포함된 EIP-1559로 도입되었습니다.</p>
+
+<h2>1. EIP-1559 이전의 수수료</h2>
+<p>이전에는 사용자가 원하는 가스 가격을 직접 입찰하고, 채굴자가 비싼 거래부터 블록에 담는 경매 방식이었습니다. 수수료 예측이 어렵고, 혼잡할 때는 필요 이상으로 비싸게 내는 일이 잦았습니다. 수수료는 전부 채굴자에게 돌아갔습니다.</p>
+
+<h2>2. 기본 수수료와 우선 수수료</h2>
+<p>EIP-1559 이후 거래 수수료는 두 부분으로 나뉩니다.</p>
+<ul>
+  <li><strong>기본 수수료(Base Fee)</strong>: 네트워크가 블록마다 자동으로 정하는 최소 가격입니다. 이 금액은 <strong>전부 소각</strong>되어 누구에게도 지급되지 않습니다.</li>
+  <li><strong>우선 수수료(Priority Fee, 팁)</strong>: 빨리 처리해 달라고 블록 생성자(지금은 검증인)에게 주는 웃돈입니다. 소각되지 않습니다.</li>
+</ul>
+<div class="formula">사용자 지불액 = 가스 사용량 × (기본 수수료 + 우선 수수료)
+소각량      = 가스 사용량 × 기본 수수료</div>
+
+<h2>3. 기본 수수료는 어떻게 움직이나</h2>
+<p>각 블록에는 목표 가스량(가스 한도의 절반)이 있습니다. 직전 블록이 목표보다 많이 찼으면 기본 수수료가 오르고, 덜 찼으면 내려갑니다. 한 블록에서 바뀔 수 있는 폭은 <strong>최대 12.5%</strong>입니다.</p>
+<div class="callout key">
+<p>블록이 연속으로 가득 차면 기본 수수료는 블록마다 12.5%씩 복리로 오릅니다. 약 12초마다 블록이 생성되므로 1분(5블록) 만에 약 1.8배가 될 수 있습니다. 수요가 몰리는 순간 소각량이 급격히 늘어나는 이유입니다.</p>
+</div>
+
+<h2>4. 소각은 공급에 어떤 의미인가</h2>
+<p>소각된 ETH는 영원히 사용할 수 없으므로 총공급량에서 빠집니다. 네트워크를 많이 쓸수록 소각이 늘고, 신규 발행량보다 소각량이 많으면 총공급량이 줄어듭니다. 실제로 CryptoFlow 데이터로 보면 2022년 9월 더 머지부터 2024년 3월 덴쿤 업그레이드 직전까지 이더리움 총공급량은 약 <strong>43만 5천 ETH 감소</strong>했습니다.</p>
+<p>반대로 네트워크가 한산하거나 거래가 레이어2로 옮겨가 메인넷 기본 수수료가 낮아지면 소각이 줄어 공급이 늘어납니다. 2024년 이후 공급이 다시 증가한 이유가 바로 이것입니다. 자세한 내용은 <a href="/guides/ethereum-supply-after-dencun.html">덴쿤 이후 공급량 분석</a>에서 다룹니다.</p>
+
+<h2>5. 오해하기 쉬운 점</h2>
+<ul>
+  <li><strong>“소각 = 항상 디플레이션”은 아닙니다.</strong> 소각량이 발행량보다 많을 때만 공급이 줄어듭니다.</li>
+  <li><strong>소각은 수수료를 낮춰주지 않습니다.</strong> EIP-1559의 목적은 수수료를 예측 가능하게 만드는 것이지 싸게 만드는 것이 아닙니다.</li>
+  <li><strong>사용자가 소각 여부를 고를 수 없습니다.</strong> 기본 수수료는 프로토콜이 강제로 소각합니다.</li>
+</ul>
+<div class="cta"><a href="/">공급량 계산기로 직접 확인하기</a><a class="secondary" href="/guides/">다른 가이드 보기</a></div><section class="related"><h2>함께 읽으면 좋은 글</h2><ul class="card-list"><li><a href="/guides/ethereum-merge-issuance.html"><span class="tag eth">ETH</span><span class="title">더 머지 전후 이더리움 발행량 비교: 하루 1만 2천 개에서 순감소까지</span><span class="desc">작업증명 시절과 지분증명 전환 이후의 하루 발행량을 실제 데이터로 비교하고, 스테이킹 보상이 정해지는 방식을 설명합니다.</span></a></li><li><a href="/guides/ethereum-supply-after-dencun.html"><span class="tag eth">ETH</span><span class="title">덴쿤 업그레이드 이후 이더리움 공급량은 왜 다시 늘었나</span><span class="desc">2024년 덴쿤(EIP-4844) 이후 소각량이 줄어든 이유와 공급량이 다시 증가세로 돌아선 흐름을 데이터로 살펴봅니다.</span></a></li><li><a href="/guides/crypto-supply-terms.html"><span class="tag ">기초</span><span class="title">총공급량·유통량·최대공급량 차이와 인플레이션율 계산법</span><span class="desc">헷갈리는 공급량 용어를 정리하고, 연간 공급 인플레이션율을 직접 계산하는 공식을 예시와 함께 설명합니다.</span></a></li></ul></section><p class="disclaimer">이 글은 암호화폐의 구조를 설명하기 위한 정보 제공용 콘텐츠이며, 특정 자산의 매수·매도를 권유하지 않습니다. 본문의 공급량 수치는 Coin Metrics Community API 데이터(2026년 10월 19일 기준)를 바탕으로 계산했으며, 데이터 제공처 사정에 따라 일부 차이가 있을 수 있습니다.</p>
+</main>
+<footer class="site-footer">
+  <nav aria-label="사이트 정보">
+    <a href="/about.html">소개</a><a href="/guides/">가이드</a><a href="/privacy.html">개인정보처리방침</a><a href="/terms.html">이용약관·면책조항</a><a href="/contact.html">문의</a><a href="/release-notes.html">릴리즈 노트</a>
+  </nav>
+  <p>본 사이트의 모든 정보는 투자 권유가 아닌 정보 제공 목적이며, 투자 판단과 그 결과에 대한 책임은 이용자 본인에게 있습니다.</p>
+  <p>공급량 데이터: Coin Metrics Community API · © 2026 CryptoFlow</p>
+</footer>
+</body>
+</html>
