@@ -43,6 +43,9 @@
         .live-crypto-price { text-align: right; }
         .live-crypto-price .price { font-size: 28px; font-weight: bold; }
         .live-crypto-price .change { font-size: 16px; }
+        .price-status { max-width: 320px; margin-top: 6px; font-size: 12px; color: #aebacd; }
+        .price-retry { margin-top: 6px; border: 1px solid #8c9db3; border-radius: 6px; padding: 5px 10px; background: #1A2233; color: #E5ECF6; cursor: pointer; }
+        .price-retry:disabled { opacity: 0.6; cursor: wait; }
         .up { color: #4CAF50 !important; }
         .down { color: #F44336 !important; }
         .hidden { display: none; }
@@ -287,8 +290,10 @@
     </div>
     <div class="live-crypto-price">
         <div id="price-title" data-lang-key="btcPriceTitle">비트코인 가격</div>
-        <div class="price" id="crypto-price">Loading...</div>
+        <div class="price" id="crypto-price">가격 불러오는 중...</div>
         <div class="change" id="crypto-change"></div>
+        <div class="price-status" id="price-status" role="status" aria-live="polite"></div>
+        <button class="price-retry" id="price-retry" type="button" hidden>다시 시도</button>
     </div>
 </div>
 </header>
@@ -512,6 +517,12 @@
                 headerTitle: "비트코인·이더리움 공급량 및 발행량 계산기",
                 btcPriceTitle: "비트코인 가격",
                 ethPriceTitle: "이더리움 가격",
+                priceLoading: "가격 불러오는 중...",
+                priceRefreshing: "가격 업데이트 중...",
+                priceUnavailable: "가격을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.",
+                priceStale: "업데이트 실패 · 마지막으로 받은 가격입니다.",
+                priceUpdated: "수신 시각",
+                priceRetry: "다시 시도",
                 btcCalcTitle: "비트코인(BTC) 공급량 및 발행량 실시간 추적",
                 btcCalcSubTitle: "since 2009-01-03 (당일 -2일까지 조회 가능)",
                 ethCalcTitle: "이더리움(ETH) 공급량 및 발행량 실시간 추적",
@@ -570,6 +581,12 @@
                 headerTitle: "Bitcoin & Ethereum Supply Calculator",
                 btcPriceTitle: "Bitcoin Price",
                 ethPriceTitle: "Ethereum Price",
+                priceLoading: "Loading price...",
+                priceRefreshing: "Updating price...",
+                priceUnavailable: "Price unavailable. Please try again shortly.",
+                priceStale: "Update failed · Showing the last received price.",
+                priceUpdated: "Received",
+                priceRetry: "Retry",
                 btcCalcTitle: "Bitcoin (BTC) Supply & Issuance Tracker",
                 btcCalcSubTitle: "since 2009-01-03 (Data available up to 2 days ago)",
                 ethCalcTitle: "Ethereum (ETH) Supply & Issuance Tracker",
@@ -626,6 +643,7 @@
         };
 
         const setLanguage = (lang) => {
+            lang = lang === 'en' ? 'en' : 'ko';
             currentLang = lang;
             document.documentElement.lang = lang; // Set the lang attribute of the <html> tag
 
@@ -650,8 +668,9 @@
                 langKoBtn.classList.remove('active');
             }
 
-            // Save preference to localStorage
-            localStorage.setItem('language', lang);
+            // Storage may be disabled in private browsing or by browser policy.
+            try { localStorage.setItem('language', lang); } catch (_) { /* Keep the page usable. */ }
+            renderPrice();
         };
 
         langKoBtn.addEventListener('click', () => setLanguage('ko'));
@@ -666,79 +685,132 @@
         const priceTitleElement = document.getElementById('price-title');
         const cryptoPriceElement = document.getElementById('crypto-price');
         const cryptoChangeElement = document.getElementById('crypto-change');
+        const priceStatusElement = document.getElementById('price-status');
+        const priceRetryButton = document.getElementById('price-retry');
         const timestampElement = document.getElementById('timestamp-display');
         
         const btcCalculator = document.getElementById('btc-calculator');
         const ethCalculator = document.getElementById('eth-calculator');
 
         let currentCoin = 'BTC';
-        let lastPrice = 0;
+        const quotes = new Map();
+        let priceState = 'loading';
+        let priceRequestId = 0;
+        let activePriceRequest = null;
+        const PRICE_TIMEOUT_MS = 6000;
         let btcChartInstance;
         let ethChartInstance;
         
-        // --- Data Files Check ---
-        if (typeof btcSupplyData === 'undefined' || typeof ethSupplyData === 'undefined') {
-            console.error("CRITICAL ERROR: 공급량 데이터 파일(btc_supply_data.js 또는 eth_supply_data.js)을 찾을 수 없습니다. Python 스크립트를 실행하여 데이터 파일을 생성했는지 확인해주세요.");
-            const btcCalcButton = document.getElementById('btc-calculateBtn');
-            const ethCalcButton = document.getElementById('eth-calculateBtn');
-            if(btcCalcButton) {
-                btcCalcButton.disabled = true;
-                btcCalcButton.textContent = "데이터 파일 로딩 실패";
-                btcCalcButton.style.backgroundColor = '#555';
-                btcCalcButton.style.cursor = 'not-allowed';
+        // --- Data Fetching Functions ---
+        // Bound both the request and JSON body read. Cancellation on coin changes
+        // must not start a fallback request for a coin that is no longer selected.
+        async function fetchPriceJson(url, signal) {
+            const controller = new AbortController();
+            const cancel = () => controller.abort();
+            signal.addEventListener('abort', cancel, { once: true });
+            if (signal.aborted) cancel();
+            const timeout = setTimeout(cancel, PRICE_TIMEOUT_MS);
+            try {
+                const response = await fetch(url, { signal: controller.signal });
+                if (!response.ok) throw new Error(`Price API HTTP ${response.status}`);
+                return await response.json();
+            } finally {
+                clearTimeout(timeout);
+                signal.removeEventListener('abort', cancel);
             }
-            if(ethCalcButton) {
-                ethCalcButton.disabled = true;
-                ethCalcButton.textContent = "데이터 파일 로딩 실패";
-                ethCalcButton.style.backgroundColor = '#555';
-                ethCalcButton.style.cursor = 'not-allowed';
-            }
-            return; 
         }
 
-        // --- Data Fetching Functions ---
-        // 시세: Coinbase Exchange(기본) → CoinGecko(예비). 둘 다 API 키 없이 브라우저에서 호출 가능.
-        // (기존 CryptoCompare API는 이제 API 키 없이 호출하면 401을 반환해, 브라우저에서 CORS 오류로 보임)
-        async function getQuote(coin) {
+        function positivePrice(value) {
+            if (typeof value !== 'number' && typeof value !== 'string') return NaN;
+            const number = Number(value);
+            return Number.isFinite(number) && number > 0 ? number : NaN;
+        }
+
+        async function getQuote(coin, signal) {
             try {
-                const r = await fetch(`https://api.exchange.coinbase.com/products/${coin}-USD/stats`);
-                if (!r.ok) throw new Error(`Coinbase HTTP ${r.status}`);
-                const d = await r.json();
-                const price = parseFloat(d.last), open = parseFloat(d.open);
-                if (!isFinite(price) || !isFinite(open) || open === 0) throw new Error('Coinbase: invalid data');
-                return { price, change: price - open, changePct: (price - open) / open * 100 };
-            } catch (e) {
-                console.warn(`Coinbase price failed, trying CoinGecko:`, e);
+                const data = await fetchPriceJson(`https://api.exchange.coinbase.com/products/${coin}-USD/stats`, signal);
+                const price = positivePrice(data.last), open = positivePrice(data.open);
+                const change = price - open, changePct = change / open * 100;
+                if (![price, open, change, changePct].every(Number.isFinite)) throw new Error('Coinbase: invalid quote');
+                return { price, change, changePct, source: 'Coinbase' };
+            } catch (error) {
+                if (signal.aborted) throw error;
                 const id = coin === 'BTC' ? 'bitcoin' : 'ethereum';
-                const r = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd&include_24hr_change=true`);
-                if (!r.ok) throw new Error(`CoinGecko HTTP ${r.status}`);
-                const d = (await r.json())[id];
-                const price = d.usd, changePct = d.usd_24h_change;
-                return { price, changePct, change: price - price / (1 + changePct / 100) };
+                const data = await fetchPriceJson(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd&include_24hr_change=true`, signal);
+                const quote = data && data[id];
+                const price = positivePrice(quote && quote.usd);
+                const changePct = quote && quote.usd_24h_change;
+                // Reject null, non-finite, and impossible changes rather than display NaN/Infinity.
+                if (!Number.isFinite(price) || !Number.isFinite(changePct) || changePct <= -100) throw new Error('CoinGecko: invalid quote');
+                const change = price - price / (1 + changePct / 100);
+                if (!Number.isFinite(change)) throw new Error('CoinGecko: invalid change');
+                return { price, change, changePct, source: 'CoinGecko' };
             }
+        }
+
+        function renderPrice() {
+            const text = translations[currentLang];
+            const titleKey = currentCoin === 'BTC' ? 'btcPriceTitle' : 'ethPriceTitle';
+            priceTitleElement.dataset.langKey = titleKey;
+            priceTitleElement.textContent = text[titleKey];
+            priceRetryButton.textContent = text.priceRetry;
+            priceRetryButton.hidden = priceState !== 'error' && priceState !== 'stale';
+            priceRetryButton.disabled = Boolean(activePriceRequest);
+
+            const quote = quotes.get(currentCoin);
+            cryptoPriceElement.classList.remove('up', 'down');
+            cryptoChangeElement.classList.remove('up', 'down');
+            if (!quote) {
+                cryptoPriceElement.textContent = priceState === 'loading' ? text.priceLoading : '—';
+                cryptoChangeElement.textContent = '';
+                priceStatusElement.textContent = priceState === 'error' ? text.priceUnavailable : text.priceLoading;
+                return;
+            }
+
+            cryptoPriceElement.textContent = `$${quote.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            const sign = quote.change >= 0 ? '+' : '';
+            cryptoChangeElement.textContent = `${sign}${quote.change.toFixed(2)} (${sign}${quote.changePct.toFixed(2)}%)`;
+            if (priceState !== 'stale') {
+                cryptoPriceElement.classList.toggle('up', quote.direction > 0);
+                cryptoPriceElement.classList.toggle('down', quote.direction < 0);
+                cryptoChangeElement.classList.toggle('up', quote.change >= 0);
+                cryptoChangeElement.classList.toggle('down', quote.change < 0);
+            }
+            const received = new Date(quote.receivedAt).toLocaleTimeString(currentLang === 'ko' ? 'ko-KR' : 'en-US', { hour12: false });
+            const details = `${quote.source} · ${text.priceUpdated} ${received}`;
+            priceStatusElement.textContent = priceState === 'stale' ? `${text.priceStale} ${details}`
+                : priceState === 'loading' ? `${text.priceRefreshing} ${details}` : details;
         }
 
         async function fetchPrice(coin) {
+            if (coin !== currentCoin) return;
+            if (activePriceRequest && activePriceRequest.coin === coin) return;
+            if (activePriceRequest) activePriceRequest.controller.abort();
+            const requestId = ++priceRequestId;
+            const controller = new AbortController();
+            activePriceRequest = { coin, controller };
+            priceState = 'loading';
+            renderPrice();
             try {
-                const q = await getQuote(coin);
-                if (coin !== currentCoin) return; // 응답 도착 전에 코인을 바꾼 경우 무시
-
-                const priceTitleKey = coin === 'BTC' ? 'btcPriceTitle' : 'ethPriceTitle';
-                priceTitleElement.textContent = translations[currentLang][priceTitleKey];
-
-                cryptoPriceElement.innerText = `$${q.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-                const sign = q.change >= 0 ? '+' : '';
-                cryptoChangeElement.innerText = `${sign}${q.change.toFixed(2)} (${sign}${q.changePct.toFixed(2)}%)`;
-                cryptoPriceElement.classList.toggle('up', lastPrice > 0 && q.price > lastPrice);
-                cryptoPriceElement.classList.toggle('down', lastPrice > 0 && q.price < lastPrice);
-                cryptoChangeElement.classList.toggle('up', q.change >= 0);
-                cryptoChangeElement.classList.toggle('down', q.change < 0);
-                lastPrice = q.price;
+                const quote = await getQuote(coin, controller.signal);
+                // The id also covers BTC → ETH → BTC and out-of-order responses.
+                if (requestId !== priceRequestId || coin !== currentCoin) return;
+                const previous = quotes.get(coin);
+                quotes.set(coin, { ...quote, receivedAt: Date.now(), direction: previous ? quote.price - previous.price : 0 });
+                priceState = 'fresh';
             } catch (error) {
-                console.error(`Error fetching ${coin} price:`, error);
-                if (cryptoPriceElement.innerText === 'Loading...') cryptoPriceElement.innerText = '-';
+                if (requestId !== priceRequestId || coin !== currentCoin) return;
+                priceState = quotes.has(coin) ? 'stale' : 'error';
+                console.warn(`Unable to update ${coin} price:`, error);
+            } finally {
+                if (requestId === priceRequestId) {
+                    activePriceRequest = null;
+                    renderPrice();
+                }
             }
         }
+
+        priceRetryButton.addEventListener('click', () => fetchPrice(currentCoin));
 
         function displayCurrentTime() {
              const now = new Date(); const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true }; const usEasternTime = now.toLocaleString('en-US', { ...options, timeZone: 'America/New_York' }); const koreaTime = now.toLocaleString('ko-KR', { ...options, timeZone: 'Asia/Seoul' }); timestampElement.innerHTML = `🇺🇸 ${usEasternTime} (US Eastern)<br>🇰🇷 ${koreaTime} (Korea)`; 
@@ -746,7 +818,6 @@
         
         // --- Main Control Function ---
         function updateDashboard() {
-            lastPrice = 0;
             fetchPrice(currentCoin);
 
             if (currentCoin === 'BTC') {
@@ -774,6 +845,35 @@
             btcBtn.classList.remove('active');
             updateDashboard();
         });
+
+        // Price loading is independent of the historical supply files.
+        let savedLang = 'ko';
+        try { savedLang = localStorage.getItem('language') || 'ko'; } catch (_) { /* Use Korean. */ }
+        setLanguage(savedLang);
+        updateDashboard();
+        displayCurrentTime();
+        setInterval(displayCurrentTime, 1000);
+        setInterval(() => fetchPrice(currentCoin), 30000);
+
+        // --- Data Files Check ---
+        if (typeof btcSupplyData === 'undefined' || typeof ethSupplyData === 'undefined') {
+            console.error("CRITICAL ERROR: 공급량 데이터 파일(btc_supply_data.js 또는 eth_supply_data.js)을 찾을 수 없습니다. Python 스크립트를 실행하여 데이터 파일을 생성했는지 확인해주세요.");
+            const btcCalcButton = document.getElementById('btc-calculateBtn');
+            const ethCalcButton = document.getElementById('eth-calculateBtn');
+            if(btcCalcButton) {
+                btcCalcButton.disabled = true;
+                btcCalcButton.textContent = "데이터 파일 로딩 실패";
+                btcCalcButton.style.backgroundColor = '#555';
+                btcCalcButton.style.cursor = 'not-allowed';
+            }
+            if(ethCalcButton) {
+                ethCalcButton.disabled = true;
+                ethCalcButton.textContent = "데이터 파일 로딩 실패";
+                ethCalcButton.style.backgroundColor = '#555';
+                ethCalcButton.style.cursor = 'not-allowed';
+            }
+            return; 
+        }
 
         // --- Calculator and Chart Logic ---
         const btcSupplyMap = new Map(btcSupplyData.map(item => [item.Date, item.Supply]));
@@ -880,15 +980,8 @@
         }
 
 
-        // --- Initial Load & Interval Updates ---
-        const savedLang = localStorage.getItem('language') || 'ko';
-        setLanguage(savedLang);
-
-        updateDashboard();
-        displayCurrentTime();
-        setInterval(displayCurrentTime, 1000);
-        setInterval(() => fetchPrice(currentCoin), 30000);
     });
 </script>
 </body>
 </html>
+
