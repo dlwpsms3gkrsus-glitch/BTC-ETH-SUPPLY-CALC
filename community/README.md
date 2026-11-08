@@ -11,7 +11,7 @@ BTC·ETH 공급량 계산기 이용자가 질문과 분석을 나누는 **한국
 
 ## 실행
 
-저장소의 `community/index.html`을 브라우저에서 엽니다. 일반 스크립트를 사용하므로 빌드나 패키지 설치 없이 `file://`에서도 실행할 수 있습니다. 브라우저별 로컬 저장 정책 차이를 피하려면 저장소 루트에서 다음과 같이 실행합니다.
+저장소의 `community/index.html`을 브라우저에서 엽니다. 일반 스크립트를 사용하므로 빌드나 패키지 설치가 필요하지 않습니다. 로컬 파일 열기(`file://`)를 지원하는 브라우저에서 직접 열 수 있습니다. 브라우저별 로컬 저장 정책 차이를 피하려면 저장소 루트에서 다음과 같이 실행합니다.
 
 ```sh
 python3 -m http.server 8000
@@ -38,6 +38,7 @@ python3 -m http.server 8000
 - `ARCHITECTURE.md`: 실제 다중 사용자 서비스를 위한 설계와 출시 조건
 - `tests/browser.cjs`: 브라우저 흐름 검사와 `preview/desktop.png`, `preview/mobile.png`, `preview/moderation.png` 캡처 생성 스크립트
 - `VERIFICATION.md`: 실제 수행한 검증과 미확인 항목
+- `preview/desktop.png`, `preview/mobile.png`, `preview/moderation.png`: 설치 Chrome에서 실제 렌더링한 예시 화면
 
 ## 확인 방법
 
@@ -54,3 +55,11 @@ node --test community/tests/model.test.cjs
 GitHub Pages만으로는 공유 게시글의 접근 제어와 운영자 권한을 안전하게 구현할 수 없습니다. 실제 서비스에는 인증된 서버 API, PostgreSQL, 서버 측 권한 검사, 개인정보·신고 정책, 백업과 모니터링이 필요합니다. 상세 설계는 [ARCHITECTURE.md](ARCHITECTURE.md)를 참고하세요.
 
 이번 범위에서는 유료 서비스 가입·설정, 계정 생성, main 병합, 운영 배포를 하지 않습니다. 운영 구축과 비용 발생은 별도 승인 후 진행합니다. 게시글과 예시는 투자 권유나 가격 예측이 아닙니다.
+
+## 예제 화면
+
+![CryptoFlow 커뮤니티 데스크톱 데모](preview/desktop.png)
+
+[모바일 뷰포트](preview/mobile.png) · [운영자 체험 화면](preview/moderation.png)
+
+이 이미지는 실제 HTML 렌더링 캡처이며, 실제 회원 활동이나 운영 서비스의 화면이 아닙니다.
