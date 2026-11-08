@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="CryptoFlow 커뮤니티의 로컬 전용 인터랙티브 데모. 실제 회원과 게시글이 아닙니다.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
+  <title>커뮤니티 · CryptoFlow | 로컬 데모</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="model.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#content">본문 바로가기</a>
+  <div class="demo-banner"><span class="demo-dot"></span><strong>INTERACTIVE DEMO</strong><span>예시 게시글 · 실제 회원 서비스 아님 · 서버 전송 없음</span></div>
+  <header class="header"><div class="header-inner">
+    <a class="brand" href="../index.html" aria-label="CryptoFlow 계산기"><span class="brand-mark">C<span>F</span></span><span>CryptoFlow<span class="brand-sub">데이터로 연결되는 대화</span></span></a>
+    <nav class="top-nav" aria-label="사이트 메뉴"><a href="../index.html">공급량 계산기</a><a href="../guides/index.html">가이드</a><a href="./index.html" aria-current="page">커뮤니티 <span class="beta">LAB</span></a></nav>
+    <button class="button button-dark" id="login-button">데모 로그인</button>
+  </div></header>
+  <div class="layout">
+    <aside class="sidebar" aria-label="커뮤니티 탐색">
+      <div class="sidebar-heading">COMMUNITY</div>
+      <nav class="channel-nav" aria-label="게시판"><button class="channel active" data-category="all"><span class="nav-icon">▦</span> 전체 이야기 <span class="nav-count" id="total-count">5</span></button><button class="channel" data-category="btc"><span class="nav-icon coin-btc">₿</span> BTC 토론</button><button class="channel" data-category="eth"><span class="nav-icon coin-eth">◇</span> ETH 토론</button><button class="channel" data-category="question"><span class="nav-icon">?</span> 계산기 질문</button><button class="channel" data-category="general"><span class="nav-icon">◌</span> 자유 이야기</button></nav>
+      <div class="sidebar-divider"></div><div class="sidebar-heading">함께 지키는 공간</div><button class="quiet sidebar-link" id="rules-button">커뮤니티 이용 규칙 <span>↗</span></button><button class="quiet sidebar-link" id="moderator-button">운영자 기능 체험 <span>↗</span></button>
+      <div class="sidebar-note"><span>작은 질문에서<br>더 깊은 이해로.</span><p>가격 전망보다 데이터의 의미를 함께 살펴봐요.</p><a href="../guides/index.html">가이드 둘러보기 →</a></div>
+      <div class="local-settings"><label><input type="checkbox" id="remember"> 이 기기에 데모 저장</label><p id="storage-status">기본은 메모리 모드입니다. 새로고침하면 초기화됩니다.</p><button class="quiet" id="reset-button">데모 초기화</button></div>
+    </aside>
+    <main id="content" tabindex="-1">
+      <section class="hero" aria-labelledby="hero-title"><div class="hero-copy"><div class="eyebrow"><span></span> CRYPTOFLOW COMMUNITY</div><h1 id="hero-title">숫자를 넘어,<br><span>함께 이해하는 크립토.</span></h1><p>BTC와 ETH의 공급량부터 계산기의 작은 질문까지.<br>데이터를 나누고, 서로의 관점을 더해 보세요.</p><button class="button button-lime" id="hero-write">첫 이야기 시작하기 <span>↗</span></button></div><div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="art-label">BTC × ETH</div><div class="art-coin btc-art">₿</div><div class="art-coin eth-art">◇</div><div class="art-caption"><span class="art-spark">✦</span> DATA MEETS PEOPLE</div></div></section>
+      <div class="notice"><span class="notice-icon">i</span><p><strong>근거 있는 대화, 서로를 존중하는 커뮤니티</strong><span>모든 게시글과 댓글은 기능 설명을 위한 예시입니다. 투자 조언이 아닙니다.</span></p><button class="quiet" id="notice-rules" aria-label="커뮤니티 이용 규칙 보기">↗</button></div>
+      <section aria-labelledby="board-title"><div class="board-heading"><div><span class="eyebrow light">LET’S TALK</span><h2 id="board-title">전체 이야기 <span id="result-count">5</span></h2></div><button class="button button-blue" id="write-button"><span>＋</span> 글쓰기</button></div>
+        <div class="board-controls"><form id="search-form" role="search"><label class="sr-only" for="search">게시글 검색</label><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="궁금한 주제나 키워드를 검색해 보세요" maxlength="100"><button class="sr-only" type="submit">검색</button></form><label class="sr-only" for="sort">정렬</label><select id="sort"><option value="newest">최신순</option><option value="comments">댓글 많은 순</option></select></div>
+        <div id="posts" class="post-list" aria-live="polite"></div>
+        <p class="list-footnote">샘플 콘텐츠로 구성된 로컬 데모 · 실제 시세와 이용자 수를 표시하지 않습니다.</p>
+      </section>
+      <section id="moderation-panel" class="moderation-panel" hidden aria-labelledby="moderation-title"><div class="section-heading"><div><span class="eyebrow light">MODERATION DEMO</span><h2 id="moderation-title">신고 및 숨김 관리</h2></div><button class="quiet" id="close-moderation">닫기 ×</button></div><p class="muted">이 기기의 데모 데이터만 처리합니다. 실제 관리자 권한이 아닙니다.</p><div id="moderation-content"></div></section>
+      <footer class="footer"><strong>CryptoFlow</strong><span>데이터를 이해하는 더 좋은 방법.</span><div><a href="../about.html">소개</a><a href="../privacy.html">개인정보처리방침</a><a href="../terms.html">이용약관</a></div></footer>
+    </main>
+    <aside class="rightbar" aria-label="도움말과 가이드"><section class="welcome-card"><div class="welcome-icon">✦</div><span class="eyebrow light">BETTER TOGETHER</span><h2>처음 오셨나요?</h2><p>질문 하나, 발견 하나.<br>당신의 관점으로 대화가 시작됩니다.</p><button class="button button-outline" id="welcome-login">데모로 참여해 보기 →</button><span class="mini-note">가입 없이 기능을 체험할 수 있어요</span></section><section class="side-section"><h3>대화 전에 읽어보세요 <span>↗</span></h3><a class="guide-link" href="../guides/calculator-guide.html"><span class="guide-number">01</span><span>공급량 계산기 사용법<small>처음이라면 여기서 시작해요</small></span></a><a class="guide-link" href="../guides/btc-vs-eth-supply.html"><span class="guide-number">02</span><span>BTC · ETH 공급량 비교<small>두 자산의 구조 이해하기</small></span></a><a class="guide-link" href="../guides/ethereum-eip1559-burn.html"><span class="guide-number">03</span><span>이더리움 소각의 원리<small>EIP-1559를 쉽게 알아봐요</small></span></a></section><section class="question-card"><span class="eyebrow light">GOOD QUESTIONS</span><h3>좋은 질문은<br>조건에서 시작해요.</h3><p>코인, 비교 기간, 데이터 출처를 함께 남겨 주세요.</p><button class="quiet" id="question-button">계산기 질문 남기기 →</button></section><p class="disclaimer">커뮤니티의 내용은 학습과 토론을 위한 것입니다. 매수·매도 권유나 수익 보장을 허용하지 않습니다.</p></aside>
+  </div>
+  <dialog id="dialog" aria-labelledby="dialog-title"><div class="dialog-top"><span id="dialog-kicker" class="eyebrow light">COMMUNITY</span><button class="icon-button" id="dialog-close" aria-label="창 닫기">×</button></div><div id="dialog-content"></div></dialog>
+  <div id="toast" role="status" aria-live="polite" hidden></div>
+  <noscript><p class="noscript">이 데모를 체험하려면 JavaScript를 켜 주세요. 실제 로그인이나 서버 연결은 없습니다.</p></noscript>
+</body></html>
